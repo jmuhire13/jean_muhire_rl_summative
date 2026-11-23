@@ -468,8 +468,11 @@ function updatePanels(snap) {
   const log = $("event-log");
   for (const event of snap.events) {
     const item = document.createElement("li");
+    // Illness happens often (each family can fall sick), so it is shown small and grey.
+    // The important events (relapse, drought, graduation, refused action) stand out.
     let kind = "";
-    if (/relapsed|Illness|refused/.test(event)) kind = "bad";
+    if (/Illness/.test(event)) kind = "minor";
+    else if (/relapsed|refused/.test(event)) kind = "bad";
     else if (/Drought/.test(event)) kind = "warn";
     else if (/graduat/.test(event)) kind = "good";
     item.className = kind;

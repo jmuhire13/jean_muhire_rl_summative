@@ -36,8 +36,8 @@ uv run main.py
 ```
 
 `main.py` starts a local server and opens the 3D village (three.js) in your browser at
-http://127.0.0.1:8000. The terminal prints a verbose log of every week. An internet
-connection is needed the first time so the browser can load three.js from the CDN.
+http://127.0.0.1:8000. The terminal prints a verbose log of every week. three.js is
+included in the project (`environment/web/vendor/`, MIT license), so the 3D view works offline.
 
 Other commands:
 

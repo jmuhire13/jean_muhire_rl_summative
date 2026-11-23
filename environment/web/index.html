@@ -7,12 +7,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/static/style.css">
-  <!-- three.js is loaded from a CDN with a fixed version -->
+  <!-- three.js (version 0.170.0) is saved in the project, so the page works offline -->
   <script type="importmap">
     {
       "imports": {
-        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
-        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+        "three": "/static/vendor/three.module.js",
+        "three/addons/controls/OrbitControls.js": "/static/vendor/OrbitControls.js"
       }
     }
   </script>
