@@ -51,7 +51,7 @@ BASELINE = {
     "target_update_interval": 500,
     "target_tau": 0.01,          # only used with soft updates
     "double_dqn": False,
-    "loss_function": "smooth_l1",  # Huber loss: gentler on big errors (l2 = squared error was unstable)
+    "loss_function": "smooth_l1",  # Huber loss: gentler on big errors (l2 = squared error, tested in dqn_16)
     "reward_scale": 1.0,         # rewards are multiplied by this during training only
     "hidden_layers": [128, 128],
     "total_frames": 150_000,     # environment steps (about 1,440 programs)
