@@ -18,8 +18,11 @@ from environment.custom_env import AidImpactEnv
 
 warnings.filterwarnings("ignore")  # hide library warnings in the training output
 
-LOGS_FOLDER = Path("logs")
-MODELS_FOLDER = Path("models")
+# Folders are found from the project folder (one level above training/),
+# so the code works no matter which folder it is started from
+PROJECT_FOLDER = Path(__file__).resolve().parent.parent
+LOGS_FOLDER = PROJECT_FOLDER / "logs"
+MODELS_FOLDER = PROJECT_FOLDER / "models"
 
 # Fixed seeds used to test every agent on the same 20 programs
 EVAL_SEEDS = list(range(5000, 5020))

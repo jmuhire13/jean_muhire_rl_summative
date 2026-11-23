@@ -14,11 +14,8 @@ import argparse
 import subprocess
 import sys
 from concurrent.futures import ThreadPoolExecutor
-from pathlib import Path
-
 from training import dqn_training, pg_training
-
-LOGS = Path("logs")
+from training.common import LOGS_FOLDER as LOGS, PROJECT_FOLDER
 
 
 def list_jobs(algorithms):
@@ -42,7 +39,8 @@ def run_job(job):
     output_file.parent.mkdir(parents=True, exist_ok=True)
     print(f"started  {run}", flush=True)
     with open(output_file, "w") as output:
-        result = subprocess.run(command, stdout=output, stderr=subprocess.STDOUT)
+        # run from the project folder so "-m training..." is always found
+        result = subprocess.run(command, stdout=output, stderr=subprocess.STDOUT, cwd=PROJECT_FOLDER)
     last_line = output_file.read_text().strip().splitlines()[-1] if result.returncode == 0 else "FAILED, see log"
     print(f"finished {run}: {last_line}", flush=True)
 

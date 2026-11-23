@@ -11,23 +11,28 @@ algorithm (models/*/best_*.pt) followed by the hand-made baselines.
 """
 
 import argparse
-from pathlib import Path
 
 import numpy as np
 
 from environment.custom_env import AidImpactEnv
 from environment.rendering import run_server, print_step
 from training.baselines import BASELINES
-from training.common import load_agent
+from training.common import MODELS_FOLDER, load_agent
+
+# The agent selected when the program starts. DQN is chosen on purpose:
+# it is the only trained agent whose graduations last (see the README results).
+DEFAULT_POLICY = "dqn_agent"
 
 
 def load_trained_policies():
     """Load the best saved model of each algorithm (files named best_*.pt).
     The officer picks the action its network scores highest."""
     policies = {}
-    for config_path in sorted(Path("models").glob("*/best_*.json")):
+    for config_path in sorted(MODELS_FOLDER.glob("*/best_*.json")):
         choose_action, config = load_agent(config_path)
         policies[f"{config['algorithm']}_agent"] = choose_action
+    if not policies:
+        print(f"Warning: no trained models found in {MODELS_FOLDER}. Only the hand-made officers are available.")
     return policies
 
 
@@ -59,13 +64,13 @@ def run_in_terminal(policy, seed):
     print(env.render())
     print()
     print(f"Total reward: {total_reward:.2f}")
-    print(f"Graduations that held: {info['successful_graduations']}")
+    print(f"Graduations held: {info['successful_graduations']}")
     print(f"Relapses: {info['relapses']}")
 
 
 def main():
     parser = argparse.ArgumentParser(description="Aid Impact Simulator")
-    parser.add_argument("--policy", default=None, help="policy to start with (default: best trained agent)")
+    parser.add_argument("--policy", default=None, help="policy to start with (default: dqn_agent)")
     parser.add_argument("--seed", type=int, default=0, help="random seed for --text mode")
     parser.add_argument("--port", type=int, default=8000, help="port for the web server")
     parser.add_argument("--text", action="store_true", help="terminal only, no 3D view")
@@ -74,7 +79,8 @@ def main():
 
     policies = load_policies()
     if args.policy is None:
-        args.policy = next(iter(policies))  # first in the list: a trained agent if one exists
+        # DQN if it was loaded, otherwise the first policy in the list
+        args.policy = DEFAULT_POLICY if DEFAULT_POLICY in policies else next(iter(policies))
     if args.policy not in policies:
         print(f"Unknown policy '{args.policy}'. Choose from: {', '.join(policies)}")
         return

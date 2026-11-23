@@ -17,14 +17,14 @@ from pathlib import Path
 
 import numpy as np
 import uvicorn
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from environment.custom_env import (
     AidImpactEnv, ACTION_NAMES, ACTION_COSTS, OBSERVATION_NAMES,
-    NUM_HOUSEHOLDS, PROGRAM_WEEKS, START_BUDGET, CRISIS_FOOD_LEVEL,
+    NUM_HOUSEHOLDS, PROGRAM_WEEKS, START_BUDGET, CRISIS_FOOD_LEVEL, ASSET_DELAY_WEEKS,
 )
 
 WEB_FOLDER = Path(__file__).parent / "web"
@@ -59,7 +59,7 @@ def build_snapshot(env, reward=0.0, total_reward=0.0, done=False):
             "weeks_since_visit": int(env.weeks_since_visit[h]),
             # program register
             "has_asset": bool(env.has_asset[h]),
-            "asset_ready": bool(env.has_asset[h] and env.asset_age[h] >= 8),
+            "asset_ready": bool(env.has_asset[h] and env.asset_age[h] >= ASSET_DELAY_WEEKS),
             "has_training": bool(env.has_training[h]),
             "in_savings_group": bool(env.in_savings_group[h]),
             "has_health_cover": bool(env.has_health_cover[h]),
@@ -93,9 +93,9 @@ def print_step(week, household, action, reward, total_reward, info):
     print(f"Week {week:3d} | Household {household + 1:2d} | "
           f"{ACTION_NAMES[action]:22s} | reward {reward:7.2f} | "
           f"total {total_reward:8.2f} | budget {info['budget']:6.1f} | "
-          f"crisis {info['households_in_crisis']:2d}")
+          f"crisis {info['households_in_crisis']:2d}", flush=True)
     for event in info["events"]:
-        print(f"           -> {event}")
+        print(f"           -> {event}", flush=True)
 
 
 # ---------------------------------------------------------------------------
@@ -133,11 +133,12 @@ def create_app(policies, default_policy):
     def recommend(body: HouseholdObservation):
         # Integration example: an NGO dashboard sends a household profile
         # and gets back the recommended intervention
+        # Wrong input gets the error code 400 (bad request) and a short message
         if len(body.observation) != len(OBSERVATION_NAMES):
-            return {"error": f"observation must have {len(OBSERVATION_NAMES)} values"}
+            raise HTTPException(400, f"observation must have {len(OBSERVATION_NAMES)} values")
         name = body.policy or default_policy
         if name not in policies:
-            return {"error": f"unknown policy '{name}'"}
+            raise HTTPException(400, f"unknown policy '{name}', choose from: {', '.join(policies)}")
         obs = np.clip(np.array(body.observation, dtype=np.float32), 0.0, 1.0)
         action = int(policies[name](obs))
         return {"policy": name, "action": action, "action_name": ACTION_NAMES[action]}
@@ -163,7 +164,7 @@ def create_app(policies, default_policy):
                     total_reward = 0.0
                     done = False
                     print()
-                    print(f"=== New program | policy: {policy_name} | seed: {seed} ===")
+                    print(f"=== New program | policy: {policy_name} | seed: {seed} ===", flush=True)
                     await socket.send_json(build_snapshot(env))
 
                 elif message["type"] == "step" and not done:
@@ -181,9 +182,9 @@ def create_app(policies, default_policy):
 
                     if done:
                         print(f"=== Program finished | total reward {total_reward:.2f} | "
-                              f"confirmed graduations {step_info['successful_graduations']} | "
+                              f"graduations held {step_info['successful_graduations']} | "
                               f"relapses {step_info['relapses']} | "
-                              f"in crisis {step_info['households_in_crisis']} ===")
+                              f"in crisis {step_info['households_in_crisis']} ===", flush=True)
         except WebSocketDisconnect:
             pass
 
@@ -195,7 +196,7 @@ def run_server(policies, default_policy, port=8000, open_browser=True):
     app = create_app(policies, default_policy)
     url = f"http://127.0.0.1:{port}"
     print(f"Aid Impact Simulator running at {url}")
-    print("Press Ctrl+C in this terminal to stop.")
+    print("Press Ctrl+C in this terminal to stop.", flush=True)
     if open_browser:
         webbrowser.open(url)
     uvicorn.run(app, host="127.0.0.1", port=port, log_level="warning")

@@ -368,7 +368,9 @@ class AidImpactEnv(gym.Env):
             if not self.graduation_checked[h] and self.weeks_since_graduation[h] >= GRADUATION_CHECK_WEEKS:
                 self.graduation_checked[h] = True
                 if self.food[h] >= 0.40 and resilience[h] >= 0.45:
-                    # Success: the household stands on its own
+                    # Success: the household stands on its own.
+                    # This counter never goes down. If the household falls into
+                    # crisis later, that is counted separately in self.relapses.
                     reward += 5.0
                     self.successful_graduations += 1
                     self.graduation_held[h] = True
