@@ -127,6 +127,7 @@ class AidImpactEnv(gym.Env):
         self.graduated = np.zeros(n, dtype=bool)
         self.weeks_since_graduation = np.zeros(n)
         self.graduation_checked = np.zeros(n, dtype=bool)
+        self.graduation_held = np.zeros(n, dtype=bool)
 
         # The officer's records. They start from a baseline survey and only
         # get updated when staff visit the household.
@@ -176,28 +177,25 @@ class AidImpactEnv(gym.Env):
             self._apply_action(h, action)
         self.last_action = action_done
 
-        # 2. One week passes for every household
-        self._simulate_week()
+        # 2. One week passes and the officer is scored for it
+        reward += self._pass_one_week(score_before)
 
-        # 3. Check how graduated households are doing
-        reward += self._check_graduations()
-
-        # 4. Progress reward: change in lasting wellbeing across the caseload
-        score_after = self._lasting_score().mean()
-        reward += 10.0 * (score_after - score_before)
-
-        # 5. Penalty for every household in a food crisis this week
-        in_crisis = (self.food < CRISIS_FOOD_LEVEL).sum()
-        reward -= 0.3 * in_crisis
-
-        # 6. Move to the next week and the next household to review
-        self.week += 1
+        # 3. Move to the next household to review
         self.current = self._next_household(h)
 
-        # The episode ends when every household has graduated (terminated)
-        # or when the two year program is over (truncated). Running out of
-        # money does not end the program: staff can still monitor and graduate.
-        terminated = self.current is None
+        # 4. If every household has graduated, nobody is left to review, but
+        #    life goes on. We fast-forward week by week until a household
+        #    relapses (it comes back into the program), every graduation is
+        #    confirmed, or the program time is over.
+        while self.current is None and self.week < PROGRAM_WEEKS and not self._all_graduations_held():
+            reward += self._pass_one_week(self._lasting_score().mean())
+            self.current = self._next_household(h)
+
+        # The episode ends early only when every household graduated and
+        # stayed out of poverty for 12 weeks (terminated). Otherwise it ends
+        # when the two year program is over (truncated). Running out of money
+        # does not end the program: staff can still monitor and graduate.
+        terminated = self._all_graduations_held()
         truncated = bool(self.week >= PROGRAM_WEEKS and not terminated)
 
         if terminated or truncated:
@@ -209,6 +207,26 @@ class AidImpactEnv(gym.Env):
             self.render()
 
         return self._get_observation(), float(reward), terminated, truncated, self._get_info()
+
+    def _pass_one_week(self, score_before):
+        """One week of life for the whole village, and the reward for it."""
+        self._simulate_week()
+
+        # Delayed reward: check how graduated households are doing
+        reward = self._check_graduations()
+
+        # Progress reward: change in lasting wellbeing across the caseload
+        reward += 10.0 * (self._lasting_score().mean() - score_before)
+
+        # Penalty for every household in a food crisis this week
+        reward -= 0.3 * (self.food < CRISIS_FOOD_LEVEL).sum()
+
+        self.week += 1
+        return reward
+
+    def _all_graduations_held(self):
+        # True when every household graduated and passed its 12 week check
+        return bool(np.all(self.graduated & self.graduation_held))
 
     # -----------------------------------------------------------------------
     # What each action does
@@ -249,6 +267,7 @@ class AidImpactEnv(gym.Env):
             self.graduated[h] = True
             self.weeks_since_graduation[h] = 0
             self.graduation_checked[h] = False
+            self.graduation_held[h] = False
             self.last_events.append(f"Household {h + 1} graduated")
             self._clip_values()
             return  # no visit record update when graduating
@@ -341,16 +360,25 @@ class AidImpactEnv(gym.Env):
                 reward -= 5.0
                 self.relapses += 1
                 self.graduated[h] = False  # it comes back into the program
+                self.graduation_held[h] = False
                 self.last_events.append(f"Household {h + 1} relapsed into crisis")
                 continue
 
-            # Success: still doing well some weeks after leaving the program
+            # Check 12 weeks after leaving the program
             if not self.graduation_checked[h] and self.weeks_since_graduation[h] >= GRADUATION_CHECK_WEEKS:
                 self.graduation_checked[h] = True
                 if self.food[h] >= 0.40 and resilience[h] >= 0.45:
+                    # Success: the household stands on its own
                     reward += 5.0
                     self.successful_graduations += 1
+                    self.graduation_held[h] = True
                     self.last_events.append(f"Household {h + 1} graduation confirmed")
+                else:
+                    # Not in crisis, but not strong enough either:
+                    # it was graduated too early and comes back into the program
+                    reward -= 2.0
+                    self.graduated[h] = False
+                    self.last_events.append(f"Household {h + 1} not ready, back in program")
 
         return reward
 

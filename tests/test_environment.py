@@ -5,7 +5,7 @@ import gymnasium as gym
 from gymnasium.utils.env_checker import check_env
 
 import environment  # registers AidImpact-v0
-from environment.custom_env import AidImpactEnv, CASH_TRANSFER, GIVE_ASSET, PROGRAM_WEEKS
+from environment.custom_env import AidImpactEnv, CASH_TRANSFER, GIVE_ASSET, GRADUATE, PROGRAM_WEEKS
 from training.baselines import BASELINES, run_policy
 
 
@@ -65,6 +65,26 @@ def test_cash_transfer_raises_food_and_dependency():
     env._apply_action(h, CASH_TRANSFER)
     assert env.food[h] > food_before
     assert env.dependency[h] > 0
+
+
+def test_graduating_everyone_does_not_end_the_program_early():
+    # Graduating households that are not ready must not be a shortcut:
+    # life goes on, they relapse and come back, and the program continues.
+    env = AidImpactEnv()
+    env.reset(seed=11)
+    done = False
+    while not done:
+        _, _, terminated, truncated, info = env.step(GRADUATE)
+        done = terminated or truncated
+    assert info["week"] == PROGRAM_WEEKS
+    assert info["relapses"] > 0
+
+
+def test_graduating_everyone_scores_worse_than_rule_based():
+    env = AidImpactEnv()
+    always_graduate = run_policy(env, lambda obs, rng: GRADUATE, episodes=10, seed=200)
+    rule_based = run_policy(env, BASELINES["rule_based"], episodes=10, seed=200)
+    assert np.mean([r["total_reward"] for r in always_graduate]) < np.mean([r["total_reward"] for r in rule_based])
 
 
 def test_rule_based_beats_cash_only_and_random():
