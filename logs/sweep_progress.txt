@@ -106,3 +106,7 @@ finished a2c_09_critic_10: [a2c_09_critic_10] done in 13.7 min | eval reward -34
 finished a2c_10_gamma_090: [a2c_10_gamma_090] done in 13.2 min | eval reward -104.19 | graduations 0.00 | relapses 0.00 | in crisis 11.90
 finished a2c_11_small_network: [a2c_11_small_network] done in 11.8 min | eval reward -146.88 | graduations 0.00 | relapses 0.00 | in crisis 11.90
 All experiments finished.
+
+Note: a2c_07_no_entropy failed in the sweep because of a bug when entropy_coeff is 0
+(fixed in training/pg_training.py). It was then rerun on its own:
+finished a2c_07_no_entropy: [a2c_07_no_entropy] done in 6.4 min | eval reward -34.58 | graduations 0.00 | relapses 0.00 | in crisis 3.80

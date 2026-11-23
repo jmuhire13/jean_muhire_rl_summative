@@ -78,7 +78,7 @@ uv run python -m training.analysis                               # pick best mod
 
 53 hyperparameter runs in total: DQN 17, REINFORCE 12, PPO 13, A2C 11.
 
-| Agent | Best run | Mean reward | Graduations that held | Households in crisis at end |
+| Agent | Best run | Mean reward | Graduations held | Households in crisis at end |
 |---|---|---|---|---|
 | Rule-based officer (baseline) | | 8.5 | 0.5 | 0.0 |
 | REINFORCE | reinforce_09_high_entropy | -6.0 | 0.0 | 0.0 |
@@ -86,7 +86,7 @@ uv run python -m training.analysis                               # pick best mod
 | DQN | dqn_17_reward_scale | -21.4 | 5.8 | 0.8 |
 | A2C | a2c_01_baseline | -33.1 | 0.0 | 2.2 |
 | Cash-only officer (baseline) | | -146.9 | 0.0 | 11.9 |
-| Random officer (baseline) | | -202.7 | | |
+| Random officer (baseline) | | -202.7 | 0.7 | 6.6 |
 
 What the agents learned:
 
@@ -95,7 +95,8 @@ What the agents learned:
 - **DQN** builds income and savings, then graduates households. It is the only agent whose
   graduations last, but it is less stable and suffers more when droughts are frequent.
 - **A2C** learned to give cash transfers: food looks fine today, but no lasting income is built.
-- Runs with a short planning horizon (gamma 0.90) fell back to cash every time.
+- All three policy gradient runs with a short planning horizon (gamma 0.90) fell back to cash
+  (57 to 60% of decisions). The DQN run with gamma 0.90 did not.
 
 Figures are in `assets/`. Their numbers match the figures in the report:
 
