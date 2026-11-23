@@ -12,3 +12,6 @@ Thumbs.db
 
 # Local editor tool settings
 .claude/
+
+# Personal study notes and assignment documents (kept local only)
+docs/

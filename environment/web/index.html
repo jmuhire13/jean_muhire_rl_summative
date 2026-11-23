@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aid Impact Simulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+  <!-- three.js is loaded from a CDN with a fixed version -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <!-- The 3D scene is drawn here -->
+  <div id="scene"></div>
+
+  <!-- Floating labels above houses (positioned by village.js) -->
+  <div id="labels"></div>
+
+  <!-- Title -->
+  <header class="panel title-panel">
+    <div class="eyebrow">NGO aid allocation · Reinforcement learning</div>
+    <h1>Aid Impact Simulator</h1>
+    <p>Lasting change, not only short term relief.</p>
+  </header>
+
+  <!-- Program numbers -->
+  <section class="panel stats-panel">
+    <div class="stat wide">
+      <div class="stat-label">Week <span id="week-text">0 / 104</span></div>
+      <div class="bar"><div id="week-bar" class="bar-fill time"></div></div>
+    </div>
+    <div class="stat wide">
+      <div class="stat-label">Budget <span id="budget-text">120.0 / 120</span></div>
+      <div class="bar"><div id="budget-bar" class="bar-fill money"></div></div>
+    </div>
+    <div class="stat-grid">
+      <div class="stat"><div class="stat-label">Total reward</div><div id="total-reward" class="stat-value">0.00</div></div>
+      <div class="stat"><div class="stat-label">This week</div><div id="step-reward" class="stat-value">0.00</div></div>
+      <div class="stat"><div class="stat-label">Lasting score</div><div id="lasting" class="stat-value">0.00</div></div>
+      <div class="stat"><div class="stat-label">In crisis</div><div id="crisis" class="stat-value bad">0</div></div>
+      <div class="stat"><div class="stat-label">Graduations held</div><div id="graduations" class="stat-value good">0</div></div>
+      <div class="stat"><div class="stat-label">Relapses</div><div id="relapses" class="stat-value bad">0</div></div>
+    </div>
+    <canvas id="chart" width="560" height="150"></canvas>
+    <div class="chart-legend">
+      <span><i class="dot lasting"></i>Lasting score</span>
+      <span><i class="dot crisis"></i>Households in crisis</span>
+    </div>
+  </section>
+
+  <!-- Current decision -->
+  <section id="action-card" class="panel action-panel">
+    <div class="stat-label">Officer decision</div>
+    <div id="action-text" class="action-text">Press Play to start the program</div>
+    <div id="action-sub" class="action-sub"></div>
+  </section>
+
+  <!-- Selected household details -->
+  <section class="panel household-panel">
+    <div class="panel-head">
+      <div>
+        <div class="stat-label">Household</div>
+        <div id="hh-title" class="hh-title">1</div>
+      </div>
+      <div id="hh-status" class="badge">In program</div>
+    </div>
+    <div class="hh-columns"><span></span><span>True</span><span>Notebook</span></div>
+    <div id="hh-rows"></div>
+    <div id="hh-support" class="support-row"></div>
+    <p class="hint">Click a house to inspect it. The notebook only updates when staff visit.</p>
+  </section>
+
+  <!-- Event log -->
+  <section class="panel log-panel">
+    <div class="stat-label">Events</div>
+    <ul id="event-log"></ul>
+  </section>
+
+  <!-- Controls -->
+  <footer class="panel controls-panel">
+    <label>Policy
+      <select id="policy-select"></select>
+    </label>
+    <label>Seed
+      <input id="seed-input" type="number" value="0" min="0">
+    </label>
+    <button id="restart-btn" class="secondary">Restart</button>
+    <button id="play-btn">Play</button>
+    <button id="step-btn" class="secondary">Step</button>
+    <label class="speed">Speed
+      <input id="speed-input" type="range" min="1" max="10" value="4">
+    </label>
+    <div class="legend">
+      <span><i class="swatch red"></i>Crisis</span>
+      <span><i class="swatch amber"></i>Struggling</span>
+      <span><i class="swatch green"></i>Resilient</span>
+      <span><i class="swatch gold"></i>Graduated</span>
+    </div>
+  </footer>
+
+  <div id="connection" class="connection">Connecting to simulator...</div>
+
+  <script type="module" src="/static/village.js"></script>
+</body>
+</html>
