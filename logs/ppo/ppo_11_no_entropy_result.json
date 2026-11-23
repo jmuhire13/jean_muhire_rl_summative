@@ -1,0 +1,12 @@
+{
+  "run": "ppo_11_no_entropy",
+  "changes": "entropy_coeff=0.0",
+  "eval_reward_mean": -41.29040452152113,
+  "eval_reward_std": 17.085034853526306,
+  "graduations": 0.0,
+  "relapses": 0.0,
+  "in_crisis": 1.9,
+  "lasting_score": 0.21994873550158353,
+  "best_eval_during_training": -41.29,
+  "minutes": 13.6
+}

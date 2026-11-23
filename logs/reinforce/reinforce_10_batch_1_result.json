@@ -1,0 +1,12 @@
+{
+  "run": "reinforce_10_batch_1",
+  "changes": "episodes_per_batch=1",
+  "eval_reward_mean": -112.75755531656027,
+  "eval_reward_std": 17.492449072244007,
+  "graduations": 0.0,
+  "relapses": 0.0,
+  "in_crisis": 11.9,
+  "lasting_score": 0.16823365599767148,
+  "best_eval_during_training": -112.758,
+  "minutes": 13.1
+}

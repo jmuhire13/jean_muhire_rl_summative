@@ -1,0 +1,12 @@
+{
+  "run": "reinforce_06_no_baseline",
+  "changes": "use_baseline=False",
+  "eval_reward_mean": -120.35227587860886,
+  "eval_reward_std": 16.3535033067315,
+  "graduations": 0.0,
+  "relapses": 0.0,
+  "in_crisis": 11.95,
+  "lasting_score": 0.1692615997928098,
+  "best_eval_during_training": -120.352,
+  "minutes": 13.6
+}

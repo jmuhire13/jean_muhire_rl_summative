@@ -11,35 +11,23 @@ algorithm (models/*/best_*.pt) followed by the hand-made baselines.
 """
 
 import argparse
-import json
 from pathlib import Path
 
 import numpy as np
-import torch
-from torchrl.modules import MLP
 
 from environment.custom_env import AidImpactEnv
 from environment.rendering import run_server, print_step
 from training.baselines import BASELINES
-from training.common import greedy_from_network
+from training.common import load_agent
 
 
 def load_trained_policies():
     """Load the best saved model of each algorithm (files named best_*.pt).
-
-    Every model is a small network: 16 observation numbers in, 8 numbers out
-    (one per action). The officer picks the action with the highest number.
-    """
+    The officer picks the action its network scores highest."""
     policies = {}
     for config_path in sorted(Path("models").glob("*/best_*.json")):
-        config = json.loads(config_path.read_text())
-        activation = torch.nn.Tanh if config["activation"] == "tanh" else torch.nn.ReLU
-        network = MLP(in_features=16, out_features=8,
-                      num_cells=config["hidden_layers"], activation_class=activation)
-        network.load_state_dict(torch.load(config_path.with_suffix(".pt")))
-        network.eval()
-        name = f"{config['algorithm']}_agent"
-        policies[name] = greedy_from_network(network)
+        choose_action, config = load_agent(config_path)
+        policies[f"{config['algorithm']}_agent"] = choose_action
     return policies
 
 

@@ -1,0 +1,12 @@
+{
+  "run": "dqn_09_eps_end_020",
+  "changes": "eps_end=0.2",
+  "eval_reward_mean": -108.36351206336674,
+  "eval_reward_std": 34.350350610311416,
+  "graduations": 1.35,
+  "relapses": 4.15,
+  "in_crisis": 6.35,
+  "lasting_score": 0.32313798131702326,
+  "best_eval_during_training": -108.364,
+  "minutes": 136.3
+}

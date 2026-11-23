@@ -1,0 +1,12 @@
+{
+  "run": "ppo_05_clip_030",
+  "changes": "clip_epsilon=0.3",
+  "eval_reward_mean": -36.06776336353471,
+  "eval_reward_std": 17.15151666138456,
+  "graduations": 0.0,
+  "relapses": 0.0,
+  "in_crisis": 2.3,
+  "lasting_score": 0.21921285130022597,
+  "best_eval_during_training": -36.068,
+  "minutes": 13.8
+}

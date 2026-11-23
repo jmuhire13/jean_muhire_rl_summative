@@ -1,0 +1,52 @@
+{
+  "DQN": {
+    "Monitor only": 0.423,
+    "Cash transfer": 0.001,
+    "Give productive asset": 0.154,
+    "Skills training": 0.0,
+    "Health support": 0.017,
+    "Join savings group": 0.13,
+    "Assessment visit": 0.018,
+    "Graduate household": 0.257
+  },
+  "REINFORCE": {
+    "Monitor only": 0.85,
+    "Cash transfer": 0.0,
+    "Give productive asset": 0.115,
+    "Skills training": 0.0,
+    "Health support": 0.0,
+    "Join savings group": 0.026,
+    "Assessment visit": 0.0,
+    "Graduate household": 0.009
+  },
+  "PPO": {
+    "Monitor only": 0.885,
+    "Cash transfer": 0.0,
+    "Give productive asset": 0.115,
+    "Skills training": 0.0,
+    "Health support": 0.0,
+    "Join savings group": 0.0,
+    "Assessment visit": 0.0,
+    "Graduate household": 0.0
+  },
+  "A2C": {
+    "Monitor only": 0.437,
+    "Cash transfer": 0.563,
+    "Give productive asset": 0.0,
+    "Skills training": 0.0,
+    "Health support": 0.0,
+    "Join savings group": 0.0,
+    "Assessment visit": 0.0,
+    "Graduate household": 0.0
+  },
+  "Rule-based": {
+    "Monitor only": 0.655,
+    "Cash transfer": 0.048,
+    "Give productive asset": 0.115,
+    "Skills training": 0.001,
+    "Health support": 0.002,
+    "Join savings group": 0.075,
+    "Assessment visit": 0.097,
+    "Graduate household": 0.006
+  }
+}

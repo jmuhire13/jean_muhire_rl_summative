@@ -1,0 +1,12 @@
+run,changes,eval_reward_mean,eval_reward_std,graduations,relapses,in_crisis,lasting_score,minutes
+a2c_01_baseline,baseline,-33.14,18.21,0.0,0.0,2.2,0.22,14.2
+a2c_02_lr_low,learning_rate=0.0001,-120.74,12.79,0.0,0.0,11.9,0.17,14.1
+a2c_03_lr_high,learning_rate=0.003,-146.88,14.96,0.0,0.0,11.9,0.17,14.8
+a2c_04_steps_8,rollout_steps=8,-35.72,20.0,0.0,0.0,3.25,0.21,19.5
+a2c_05_steps_128,rollout_steps=128,-137.99,14.86,0.0,0.0,11.9,0.17,13.7
+a2c_06_lambda_095,gae_lambda=0.95,-36.3,16.96,0.0,0.0,1.6,0.22,14.8
+a2c_07_no_entropy,entropy_coeff=0.0,-34.58,19.23,0.0,0.0,3.8,0.21,6.4
+a2c_08_high_entropy,entropy_coeff=0.05,-40.24,23.78,0.0,0.0,5.9,0.2,13.9
+a2c_09_critic_10,critic_coeff=1.0,-34.83,17.69,0.0,0.0,2.4,0.21,13.7
+a2c_10_gamma_090,gamma=0.9,-104.19,15.99,0.0,0.0,11.9,0.17,13.2
+a2c_11_small_network,hidden_layers=[64],-146.88,14.96,0.0,0.0,11.9,0.17,11.8

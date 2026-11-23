@@ -1,0 +1,12 @@
+{
+  "run": "a2c_02_lr_low",
+  "changes": "learning_rate=0.0001",
+  "eval_reward_mean": -120.73889856403832,
+  "eval_reward_std": 12.791022245941178,
+  "graduations": 0.0,
+  "relapses": 0.0,
+  "in_crisis": 11.9,
+  "lasting_score": 0.16759933124986454,
+  "best_eval_during_training": -120.739,
+  "minutes": 14.1
+}

@@ -1,0 +1,12 @@
+{
+  "run": "ppo_07_rollout_short",
+  "changes": "rollout_steps=520",
+  "eval_reward_mean": -38.961816242529885,
+  "eval_reward_std": 20.455048134334778,
+  "graduations": 0.0,
+  "relapses": 0.0,
+  "in_crisis": 5.3,
+  "lasting_score": 0.20130756340070843,
+  "best_eval_during_training": -38.962,
+  "minutes": 13.8
+}

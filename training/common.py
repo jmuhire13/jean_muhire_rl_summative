@@ -81,6 +81,24 @@ def greedy_from_network(network):
     return choose_action
 
 
+def load_agent(config_path):
+    """Load a saved agent from its .json settings file and .pt weights file.
+
+    Every agent is a small network: 16 observation numbers in, 8 numbers out
+    (one per action). Returns choose_action(observation) -> action number.
+    """
+    from torchrl.modules import MLP
+
+    config_path = Path(config_path)
+    config = json.loads(config_path.read_text())
+    activation = torch.nn.Tanh if config["activation"] == "tanh" else torch.nn.ReLU
+    network = MLP(in_features=16, out_features=8,
+                  num_cells=config["hidden_layers"], activation_class=activation)
+    network.load_state_dict(torch.load(config_path.with_suffix(".pt")))
+    network.eval()
+    return greedy_from_network(network), config
+
+
 def save_log(rows, path):
     """Save a list of dictionaries as a CSV file."""
     path = Path(path)

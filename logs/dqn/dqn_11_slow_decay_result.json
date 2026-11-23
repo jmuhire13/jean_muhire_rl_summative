@@ -1,0 +1,12 @@
+{
+  "run": "dqn_11_slow_decay",
+  "changes": "eps_decay_fraction=0.9",
+  "eval_reward_mean": -98.37556435404545,
+  "eval_reward_std": 28.344126807480805,
+  "graduations": 1.05,
+  "relapses": 1.95,
+  "in_crisis": 6.15,
+  "lasting_score": 0.30843275224915223,
+  "best_eval_during_training": -98.376,
+  "minutes": 136.3
+}

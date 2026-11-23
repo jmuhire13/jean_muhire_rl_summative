@@ -1,0 +1,12 @@
+{
+  "run": "ppo_09_lambda_080",
+  "changes": "gae_lambda=0.8",
+  "eval_reward_mean": -35.83192418512493,
+  "eval_reward_std": 19.695152248236585,
+  "graduations": 0.0,
+  "relapses": 0.0,
+  "in_crisis": 1.7,
+  "lasting_score": 0.22479676914120433,
+  "best_eval_during_training": -35.832,
+  "minutes": 13.6
+}

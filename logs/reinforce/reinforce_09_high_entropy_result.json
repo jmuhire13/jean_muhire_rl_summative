@@ -1,0 +1,12 @@
+{
+  "run": "reinforce_09_high_entropy",
+  "changes": "entropy_coeff=0.05",
+  "eval_reward_mean": -6.034233111582656,
+  "eval_reward_std": 20.17977345180549,
+  "graduations": 0.0,
+  "relapses": 0.0,
+  "in_crisis": 0.0,
+  "lasting_score": 0.45706587649543184,
+  "best_eval_during_training": -6.034,
+  "minutes": 13.0
+}

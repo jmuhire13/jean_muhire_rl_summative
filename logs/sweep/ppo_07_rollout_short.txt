@@ -1,0 +1,16 @@
+[ppo_07_rollout_short] frames   10400 | entropy 1.707 | train reward -177.455 | eval reward -227.58
+[ppo_07_rollout_short] frames   20800 | entropy 1.401 | train reward -142.129 | eval reward -146.88
+[ppo_07_rollout_short] frames   31200 | entropy 1.433 | train reward -132.666 | eval reward -115.09
+[ppo_07_rollout_short] frames   41600 | entropy 0.935 | train reward -96.038 | eval reward -146.88
+[ppo_07_rollout_short] frames   52000 | entropy 1.040 | train reward -92.643 | eval reward -122.93
+[ppo_07_rollout_short] frames   62400 | entropy 0.958 | train reward -92.164 | eval reward -157.23
+[ppo_07_rollout_short] frames   72800 | entropy 1.034 | train reward -102.942 | eval reward -137.59
+[ppo_07_rollout_short] frames   83200 | entropy 0.879 | train reward -80.546 | eval reward -145.78
+[ppo_07_rollout_short] frames   93600 | entropy 0.818 | train reward -62.553 | eval reward -143.42
+[ppo_07_rollout_short] frames  104000 | entropy 0.820 | train reward -96.785 | eval reward -76.91
+[ppo_07_rollout_short] frames  114400 | entropy 0.794 | train reward -77.946 | eval reward -61.47
+[ppo_07_rollout_short] frames  124800 | entropy 0.825 | train reward -101.261 | eval reward -62.75
+[ppo_07_rollout_short] frames  135200 | entropy 0.746 | train reward -63.768 | eval reward -107.28
+[ppo_07_rollout_short] frames  145600 | entropy 0.671 | train reward -51.408 | eval reward -59.16
+[ppo_07_rollout_short] frames  150280 | entropy 0.683 | train reward -55.095 | eval reward -38.96
+[ppo_07_rollout_short] done in 13.8 min | eval reward -38.96 | graduations 0.00 | relapses 0.00 | in crisis 5.30

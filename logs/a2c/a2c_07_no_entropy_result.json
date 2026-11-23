@@ -1,0 +1,12 @@
+{
+  "run": "a2c_07_no_entropy",
+  "changes": "entropy_coeff=0.0",
+  "eval_reward_mean": -34.58199216193417,
+  "eval_reward_std": 19.232149104660994,
+  "graduations": 0.0,
+  "relapses": 0.0,
+  "in_crisis": 3.8,
+  "lasting_score": 0.20878997146028078,
+  "best_eval_during_training": -34.582,
+  "minutes": 6.4
+}

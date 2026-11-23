@@ -1,0 +1,12 @@
+{
+  "run": "reinforce_03_lr_high",
+  "changes": "learning_rate=0.005",
+  "eval_reward_mean": -143.62956713407533,
+  "eval_reward_std": 14.718134819985933,
+  "graduations": 0.0,
+  "relapses": 0.0,
+  "in_crisis": 11.9,
+  "lasting_score": 0.16753247424616619,
+  "best_eval_during_training": -143.63,
+  "minutes": 12.9
+}

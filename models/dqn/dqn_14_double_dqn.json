@@ -1,0 +1,27 @@
+{
+  "learning_rate": 0.001,
+  "gamma": 0.99,
+  "batch_size": 128,
+  "buffer_size": 50000,
+  "eps_start": 1.0,
+  "eps_end": 0.05,
+  "eps_decay_fraction": 0.5,
+  "target_update": "hard",
+  "target_update_interval": 500,
+  "target_tau": 0.01,
+  "double_dqn": true,
+  "loss_function": "smooth_l1",
+  "reward_scale": 1.0,
+  "hidden_layers": [
+    128,
+    128
+  ],
+  "total_frames": 150000,
+  "frames_per_batch": 520,
+  "updates_per_batch": 64,
+  "random_start_frames": 2000,
+  "run": "dqn_14_double_dqn",
+  "seed": 0,
+  "algorithm": "dqn",
+  "activation": "relu"
+}

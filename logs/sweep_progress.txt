@@ -1,0 +1,108 @@
+53 experiments to run with 4 workers
+started  dqn_01_baseline
+started  dqn_02_lr_low
+started  dqn_03_lr_high
+started  dqn_04_gamma_090
+finished dqn_02_lr_low: [dqn_02_lr_low] done in 17.2 min | eval reward -83.18 | graduations 0.00 | relapses 0.00 | in crisis 11.75
+started  dqn_05_gamma_0999
+finished dqn_04_gamma_090: [dqn_04_gamma_090] done in 17.3 min | eval reward -87.11 | graduations 0.75 | relapses 0.15 | in crisis 3.00
+started  dqn_06_batch_32
+finished dqn_01_baseline: [dqn_01_baseline] done in 17.3 min | eval reward -64.33 | graduations 4.40 | relapses 0.40 | in crisis 4.70
+started  dqn_07_small_buffer
+finished dqn_03_lr_high: [dqn_03_lr_high] done in 17.4 min | eval reward -115.89 | graduations 0.00 | relapses 3.35 | in crisis 11.50
+started  dqn_08_eps_end_001
+finished dqn_06_batch_32: [dqn_06_batch_32] done in 17.2 min | eval reward -67.83 | graduations 0.00 | relapses 0.00 | in crisis 9.55
+started  dqn_09_eps_end_020
+finished dqn_05_gamma_0999: [dqn_05_gamma_0999] done in 17.5 min | eval reward -121.73 | graduations 0.70 | relapses 4.10 | in crisis 6.85
+started  dqn_10_fast_decay
+finished dqn_07_small_buffer: [dqn_07_small_buffer] done in 17.5 min | eval reward -74.80 | graduations 3.65 | relapses 1.55 | in crisis 4.50
+started  dqn_11_slow_decay
+finished dqn_08_eps_end_001: [dqn_08_eps_end_001] done in 17.5 min | eval reward -106.71 | graduations 0.00 | relapses 6.30 | in crisis 10.90
+started  dqn_12_target_freq_50
+finished dqn_09_eps_end_020: [dqn_09_eps_end_020] done in 136.3 min | eval reward -108.36 | graduations 1.35 | relapses 4.15 | in crisis 6.35
+started  dqn_13_soft_target
+finished dqn_10_fast_decay: [dqn_10_fast_decay] done in 136.2 min | eval reward -107.71 | graduations 0.00 | relapses 0.50 | in crisis 11.80
+started  dqn_14_double_dqn
+finished dqn_12_target_freq_50: [dqn_12_target_freq_50] done in 136.2 min | eval reward -88.73 | graduations 3.45 | relapses 1.00 | in crisis 3.10
+started  dqn_15_small_network
+finished dqn_11_slow_decay: [dqn_11_slow_decay] done in 136.3 min | eval reward -98.38 | graduations 1.05 | relapses 1.95 | in crisis 6.15
+started  dqn_16_l2_loss
+finished dqn_15_small_network: [dqn_15_small_network] done in 13.2 min | eval reward -53.38 | graduations 0.00 | relapses 0.90 | in crisis 8.10
+started  dqn_17_reward_scale
+finished dqn_16_l2_loss: [dqn_16_l2_loss] done in 14.5 min | eval reward -80.07 | graduations 0.00 | relapses 1.35 | in crisis 11.45
+started  reinforce_01_baseline
+finished dqn_13_soft_target: [dqn_13_soft_target] done in 14.9 min | eval reward -84.00 | graduations 0.00 | relapses 3.30 | in crisis 9.10
+started  reinforce_02_lr_low
+finished dqn_14_double_dqn: [dqn_14_double_dqn] done in 15.1 min | eval reward -117.56 | graduations 0.00 | relapses 2.15 | in crisis 11.90
+started  reinforce_03_lr_high
+finished reinforce_01_baseline: [reinforce_01_baseline] done in 12.9 min | eval reward -146.88 | graduations 0.00 | relapses 0.00 | in crisis 11.90
+started  reinforce_04_gamma_090
+finished reinforce_02_lr_low: [reinforce_02_lr_low] done in 12.9 min | eval reward -65.21 | graduations 0.00 | relapses 0.00 | in crisis 1.20
+started  reinforce_05_gamma_0999
+finished reinforce_03_lr_high: [reinforce_03_lr_high] done in 12.9 min | eval reward -143.63 | graduations 0.00 | relapses 0.00 | in crisis 11.90
+started  reinforce_06_no_baseline
+finished dqn_17_reward_scale: [dqn_17_reward_scale] done in 14.8 min | eval reward -21.38 | graduations 5.80 | relapses 0.15 | in crisis 0.80
+started  reinforce_07_no_normalize
+finished reinforce_04_gamma_090: [reinforce_04_gamma_090] done in 13.6 min | eval reward -105.65 | graduations 0.00 | relapses 0.00 | in crisis 11.95
+started  reinforce_08_no_entropy
+finished reinforce_05_gamma_0999: [reinforce_05_gamma_0999] done in 13.5 min | eval reward -8.74 | graduations 0.00 | relapses 0.00 | in crisis 0.00
+started  reinforce_09_high_entropy
+finished reinforce_06_no_baseline: [reinforce_06_no_baseline] done in 13.6 min | eval reward -120.35 | graduations 0.00 | relapses 0.00 | in crisis 11.95
+started  reinforce_10_batch_1
+finished reinforce_07_no_normalize: [reinforce_07_no_normalize] done in 13.6 min | eval reward -123.41 | graduations 0.00 | relapses 0.00 | in crisis 11.90
+started  reinforce_11_batch_20
+finished reinforce_08_no_entropy: [reinforce_08_no_entropy] done in 13.1 min | eval reward -112.43 | graduations 0.00 | relapses 0.00 | in crisis 11.90
+started  reinforce_12_small_network
+finished reinforce_09_high_entropy: [reinforce_09_high_entropy] done in 13.0 min | eval reward -6.03 | graduations 0.00 | relapses 0.00 | in crisis 0.00
+started  ppo_01_baseline
+finished reinforce_10_batch_1: [reinforce_10_batch_1] done in 13.1 min | eval reward -112.76 | graduations 0.00 | relapses 0.00 | in crisis 11.90
+started  ppo_02_lr_low
+finished reinforce_11_batch_20: [reinforce_11_batch_20] done in 13.1 min | eval reward -8.74 | graduations 0.00 | relapses 0.00 | in crisis 0.00
+started  ppo_03_lr_high
+finished reinforce_12_small_network: [reinforce_12_small_network] done in 11.5 min | eval reward -8.74 | graduations 0.00 | relapses 0.00 | in crisis 0.00
+started  ppo_04_clip_010
+finished ppo_01_baseline: [ppo_01_baseline] done in 13.1 min | eval reward -38.00 | graduations 0.00 | relapses 0.00 | in crisis 2.40
+started  ppo_05_clip_030
+finished ppo_02_lr_low: [ppo_02_lr_low] done in 13.2 min | eval reward -125.18 | graduations 0.00 | relapses 0.00 | in crisis 11.75
+started  ppo_06_epochs_10
+finished ppo_03_lr_high: [ppo_03_lr_high] done in 13.1 min | eval reward -32.99 | graduations 0.00 | relapses 0.00 | in crisis 1.25
+started  ppo_07_rollout_short
+finished ppo_04_clip_010: [ppo_04_clip_010] done in 13.8 min | eval reward -32.87 | graduations 0.00 | relapses 0.00 | in crisis 2.15
+started  ppo_08_rollout_long
+finished ppo_05_clip_030: [ppo_05_clip_030] done in 13.8 min | eval reward -36.07 | graduations 0.00 | relapses 0.00 | in crisis 2.30
+started  ppo_09_lambda_080
+finished ppo_07_rollout_short: [ppo_07_rollout_short] done in 13.8 min | eval reward -38.96 | graduations 0.00 | relapses 0.00 | in crisis 5.30
+started  ppo_10_lambda_100
+finished ppo_06_epochs_10: [ppo_06_epochs_10] done in 15.3 min | eval reward -37.84 | graduations 0.00 | relapses 0.00 | in crisis 1.90
+started  ppo_11_no_entropy
+finished ppo_08_rollout_long: [ppo_08_rollout_long] done in 13.7 min | eval reward -40.28 | graduations 0.00 | relapses 0.00 | in crisis 1.95
+started  ppo_12_high_entropy
+finished ppo_09_lambda_080: [ppo_09_lambda_080] done in 13.6 min | eval reward -35.83 | graduations 0.00 | relapses 0.00 | in crisis 1.70
+started  ppo_13_gamma_090
+finished ppo_10_lambda_100: [ppo_10_lambda_100] done in 13.6 min | eval reward -8.74 | graduations 0.00 | relapses 0.00 | in crisis 0.00
+started  a2c_01_baseline
+finished ppo_11_no_entropy: [ppo_11_no_entropy] done in 13.6 min | eval reward -41.29 | graduations 0.00 | relapses 0.00 | in crisis 1.90
+started  a2c_02_lr_low
+finished ppo_12_high_entropy: [ppo_12_high_entropy] done in 13.6 min | eval reward -35.42 | graduations 0.00 | relapses 0.00 | in crisis 4.75
+started  a2c_03_lr_high
+finished ppo_13_gamma_090: [ppo_13_gamma_090] done in 13.7 min | eval reward -105.13 | graduations 0.00 | relapses 0.00 | in crisis 11.90
+started  a2c_04_steps_8
+finished a2c_01_baseline: [a2c_01_baseline] done in 14.2 min | eval reward -33.14 | graduations 0.00 | relapses 0.00 | in crisis 2.20
+started  a2c_05_steps_128
+finished a2c_02_lr_low: [a2c_02_lr_low] done in 14.1 min | eval reward -120.74 | graduations 0.00 | relapses 0.00 | in crisis 11.90
+started  a2c_06_lambda_095
+finished a2c_03_lr_high: [a2c_03_lr_high] done in 14.8 min | eval reward -146.88 | graduations 0.00 | relapses 0.00 | in crisis 11.90
+started  a2c_07_no_entropy
+finished a2c_07_no_entropy: FAILED, see log
+started  a2c_08_high_entropy
+finished a2c_05_steps_128: [a2c_05_steps_128] done in 13.7 min | eval reward -137.99 | graduations 0.00 | relapses 0.00 | in crisis 11.90
+started  a2c_09_critic_10
+finished a2c_06_lambda_095: [a2c_06_lambda_095] done in 14.8 min | eval reward -36.30 | graduations 0.00 | relapses 0.00 | in crisis 1.60
+started  a2c_10_gamma_090
+finished a2c_04_steps_8: [a2c_04_steps_8] done in 19.5 min | eval reward -35.72 | graduations 0.00 | relapses 0.00 | in crisis 3.25
+started  a2c_11_small_network
+finished a2c_08_high_entropy: [a2c_08_high_entropy] done in 13.9 min | eval reward -40.24 | graduations 0.00 | relapses 0.00 | in crisis 5.90
+finished a2c_09_critic_10: [a2c_09_critic_10] done in 13.7 min | eval reward -34.83 | graduations 0.00 | relapses 0.00 | in crisis 2.40
+finished a2c_10_gamma_090: [a2c_10_gamma_090] done in 13.2 min | eval reward -104.19 | graduations 0.00 | relapses 0.00 | in crisis 11.90
+finished a2c_11_small_network: [a2c_11_small_network] done in 11.8 min | eval reward -146.88 | graduations 0.00 | relapses 0.00 | in crisis 11.90
+All experiments finished.

@@ -1,0 +1,12 @@
+{
+  "run": "a2c_06_lambda_095",
+  "changes": "gae_lambda=0.95",
+  "eval_reward_mean": -36.300577116212914,
+  "eval_reward_std": 16.955912374863363,
+  "graduations": 0.0,
+  "relapses": 0.0,
+  "in_crisis": 1.6,
+  "lasting_score": 0.22093147603240584,
+  "best_eval_during_training": -36.301,
+  "minutes": 14.8
+}

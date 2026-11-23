@@ -1,0 +1,12 @@
+{
+  "run": "dqn_01_baseline",
+  "changes": "baseline",
+  "eval_reward_mean": -64.32574694073263,
+  "eval_reward_std": 36.12468284196385,
+  "graduations": 4.4,
+  "relapses": 0.4,
+  "in_crisis": 4.7,
+  "lasting_score": 0.3864144935804333,
+  "best_eval_during_training": -64.326,
+  "minutes": 17.3
+}

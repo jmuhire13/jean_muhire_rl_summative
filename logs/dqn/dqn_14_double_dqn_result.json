@@ -1,0 +1,12 @@
+{
+  "run": "dqn_14_double_dqn",
+  "changes": "double_dqn=True",
+  "eval_reward_mean": -117.55634019603369,
+  "eval_reward_std": 19.987880032867167,
+  "graduations": 0.0,
+  "relapses": 2.15,
+  "in_crisis": 11.9,
+  "lasting_score": 0.1723551680503276,
+  "best_eval_during_training": -117.556,
+  "minutes": 15.1
+}

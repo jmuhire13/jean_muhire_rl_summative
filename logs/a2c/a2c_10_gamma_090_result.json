@@ -1,0 +1,12 @@
+{
+  "run": "a2c_10_gamma_090",
+  "changes": "gamma=0.9",
+  "eval_reward_mean": -104.1941731163402,
+  "eval_reward_std": 15.990184948844531,
+  "graduations": 0.0,
+  "relapses": 0.0,
+  "in_crisis": 11.9,
+  "lasting_score": 0.167571876019678,
+  "best_eval_during_training": -104.194,
+  "minutes": 13.2
+}

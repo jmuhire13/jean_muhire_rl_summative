@@ -1,0 +1,12 @@
+{
+  "run": "reinforce_04_gamma_090",
+  "changes": "gamma=0.9",
+  "eval_reward_mean": -105.64534983790097,
+  "eval_reward_std": 14.889299107132153,
+  "graduations": 0.0,
+  "relapses": 0.0,
+  "in_crisis": 11.95,
+  "lasting_score": 0.1689542038636012,
+  "best_eval_during_training": -105.645,
+  "minutes": 13.6
+}

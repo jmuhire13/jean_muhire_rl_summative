@@ -1,0 +1,12 @@
+{
+  "run": "a2c_08_high_entropy",
+  "changes": "entropy_coeff=0.05",
+  "eval_reward_mean": -40.24374526163207,
+  "eval_reward_std": 23.777224080190052,
+  "graduations": 0.0,
+  "relapses": 0.0,
+  "in_crisis": 5.9,
+  "lasting_score": 0.19511466149048998,
+  "best_eval_during_training": -40.244,
+  "minutes": 13.9
+}

@@ -1,0 +1,12 @@
+{
+  "run": "a2c_01_baseline",
+  "changes": "baseline",
+  "eval_reward_mean": -33.13905571726187,
+  "eval_reward_std": 18.208600078794692,
+  "graduations": 0.0,
+  "relapses": 0.0,
+  "in_crisis": 2.2,
+  "lasting_score": 0.2220836159275102,
+  "best_eval_during_training": -33.139,
+  "minutes": 14.2
+}

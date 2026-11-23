@@ -1,0 +1,12 @@
+{
+  "run": "reinforce_07_no_normalize",
+  "changes": "normalize_returns=False",
+  "eval_reward_mean": -123.40734358791701,
+  "eval_reward_std": 19.063902107706888,
+  "graduations": 0.0,
+  "relapses": 0.0,
+  "in_crisis": 11.9,
+  "lasting_score": 0.16875482886199658,
+  "best_eval_during_training": -123.407,
+  "minutes": 13.6
+}

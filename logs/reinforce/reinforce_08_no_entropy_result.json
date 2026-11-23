@@ -1,0 +1,12 @@
+{
+  "run": "reinforce_08_no_entropy",
+  "changes": "entropy_coeff=0.0",
+  "eval_reward_mean": -112.42673026403804,
+  "eval_reward_std": 13.00991999827756,
+  "graduations": 0.0,
+  "relapses": 0.0,
+  "in_crisis": 11.9,
+  "lasting_score": 0.16781616124989335,
+  "best_eval_during_training": -112.427,
+  "minutes": 13.1
+}

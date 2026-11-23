@@ -1,0 +1,12 @@
+{
+  "run": "dqn_02_lr_low",
+  "changes": "learning_rate=0.0001",
+  "eval_reward_mean": -83.17710566722891,
+  "eval_reward_std": 23.460957096893694,
+  "graduations": 0.0,
+  "relapses": 0.0,
+  "in_crisis": 11.75,
+  "lasting_score": 0.180278620930804,
+  "best_eval_during_training": -83.177,
+  "minutes": 17.2
+}

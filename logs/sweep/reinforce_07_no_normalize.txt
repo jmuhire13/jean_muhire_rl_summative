@@ -1,0 +1,16 @@
+[reinforce_07_no_normalize] frames   10400 | entropy 2.015 | train reward -217.44 | eval reward -227.57
+[reinforce_07_no_normalize] frames   20800 | entropy 1.969 | train reward -198.814 | eval reward -227.58
+[reinforce_07_no_normalize] frames   31200 | entropy 1.793 | train reward -194.005 | eval reward -123.41
+[reinforce_07_no_normalize] frames   41600 | entropy 1.714 | train reward -165.006 | eval reward -227.58
+[reinforce_07_no_normalize] frames   52000 | entropy 1.584 | train reward -146.463 | eval reward -227.58
+[reinforce_07_no_normalize] frames   62400 | entropy 1.563 | train reward -159.586 | eval reward -227.58
+[reinforce_07_no_normalize] frames   72800 | entropy 1.445 | train reward -133.285 | eval reward -221.42
+[reinforce_07_no_normalize] frames   83200 | entropy 1.170 | train reward -120.71 | eval reward -146.88
+[reinforce_07_no_normalize] frames   93600 | entropy 0.676 | train reward -116.921 | eval reward -146.88
+[reinforce_07_no_normalize] frames  104000 | entropy 0.602 | train reward -137.569 | eval reward -146.88
+[reinforce_07_no_normalize] frames  114400 | entropy 1.147 | train reward -122.954 | eval reward -146.88
+[reinforce_07_no_normalize] frames  124800 | entropy 1.264 | train reward -140.321 | eval reward -130.90
+[reinforce_07_no_normalize] frames  135200 | entropy 0.882 | train reward -116.243 | eval reward -146.88
+[reinforce_07_no_normalize] frames  145600 | entropy 0.966 | train reward -110.347 | eval reward -146.88
+[reinforce_07_no_normalize] frames  150280 | entropy 1.064 | train reward -103.333 | eval reward -146.88
+[reinforce_07_no_normalize] done in 13.6 min | eval reward -123.41 | graduations 0.00 | relapses 0.00 | in crisis 11.90

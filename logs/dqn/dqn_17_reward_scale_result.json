@@ -1,0 +1,12 @@
+{
+  "run": "dqn_17_reward_scale",
+  "changes": "reward_scale=0.1",
+  "eval_reward_mean": -21.3844488909762,
+  "eval_reward_std": 40.3437666547602,
+  "graduations": 5.8,
+  "relapses": 0.15,
+  "in_crisis": 0.8,
+  "lasting_score": 0.4815442985560775,
+  "best_eval_during_training": -21.384,
+  "minutes": 14.8
+}

@@ -1,0 +1,12 @@
+{
+  "run": "dqn_07_small_buffer",
+  "changes": "buffer_size=5000",
+  "eval_reward_mean": -74.79948548838033,
+  "eval_reward_std": 41.64719132853143,
+  "graduations": 3.65,
+  "relapses": 1.55,
+  "in_crisis": 4.5,
+  "lasting_score": 0.388040638815666,
+  "best_eval_during_training": -74.799,
+  "minutes": 17.5
+}

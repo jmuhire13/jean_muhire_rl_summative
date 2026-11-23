@@ -1,0 +1,12 @@
+{
+  "run": "dqn_16_l2_loss",
+  "changes": "loss_function=l2",
+  "eval_reward_mean": -80.07177091746503,
+  "eval_reward_std": 19.567864847659777,
+  "graduations": 0.0,
+  "relapses": 1.35,
+  "in_crisis": 11.45,
+  "lasting_score": 0.17381209590719454,
+  "best_eval_during_training": -80.072,
+  "minutes": 14.5
+}

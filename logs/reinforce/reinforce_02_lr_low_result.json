@@ -1,0 +1,12 @@
+{
+  "run": "reinforce_02_lr_low",
+  "changes": "learning_rate=0.0001",
+  "eval_reward_mean": -65.21009146045846,
+  "eval_reward_std": 30.44148187101836,
+  "graduations": 0.0,
+  "relapses": 0.0,
+  "in_crisis": 1.2,
+  "lasting_score": 0.2279800416078515,
+  "best_eval_during_training": -65.21,
+  "minutes": 12.9
+}

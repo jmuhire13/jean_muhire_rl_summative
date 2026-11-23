@@ -1,0 +1,12 @@
+{
+  "run": "a2c_04_steps_8",
+  "changes": "rollout_steps=8",
+  "eval_reward_mean": -35.72403038643269,
+  "eval_reward_std": 20.003235618735303,
+  "graduations": 0.0,
+  "relapses": 0.0,
+  "in_crisis": 3.25,
+  "lasting_score": 0.21158614901042877,
+  "best_eval_during_training": -35.724,
+  "minutes": 19.5
+}

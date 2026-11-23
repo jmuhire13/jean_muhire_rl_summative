@@ -1,0 +1,12 @@
+{
+  "run": "ppo_02_lr_low",
+  "changes": "learning_rate=0.0001",
+  "eval_reward_mean": -125.18490948125357,
+  "eval_reward_std": 18.027814377422523,
+  "graduations": 0.0,
+  "relapses": 0.0,
+  "in_crisis": 11.75,
+  "lasting_score": 0.16799823952834173,
+  "best_eval_during_training": -125.185,
+  "minutes": 13.2
+}

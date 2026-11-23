@@ -1,0 +1,16 @@
+[a2c_01_baseline] frames   10400 | entropy 1.819 | train reward -171.284 | eval reward -227.58
+[a2c_01_baseline] frames   20800 | entropy 1.370 | train reward -176.358 | eval reward -227.58
+[a2c_01_baseline] frames   31200 | entropy 0.646 | train reward -138.101 | eval reward -146.88
+[a2c_01_baseline] frames   41600 | entropy 1.371 | train reward -111.578 | eval reward -143.53
+[a2c_01_baseline] frames   52000 | entropy 0.954 | train reward -137.211 | eval reward -217.48
+[a2c_01_baseline] frames   62400 | entropy 1.115 | train reward -97.406 | eval reward -146.88
+[a2c_01_baseline] frames   72800 | entropy 0.404 | train reward -132.221 | eval reward -146.88
+[a2c_01_baseline] frames   83200 | entropy 1.036 | train reward -95.123 | eval reward -110.54
+[a2c_01_baseline] frames   93600 | entropy 1.017 | train reward -73.597 | eval reward -69.78
+[a2c_01_baseline] frames  104000 | entropy 0.754 | train reward -87.274 | eval reward -146.88
+[a2c_01_baseline] frames  114400 | entropy 0.829 | train reward -78.892 | eval reward -150.31
+[a2c_01_baseline] frames  124800 | entropy 0.671 | train reward -90.677 | eval reward -80.60
+[a2c_01_baseline] frames  135200 | entropy 0.944 | train reward -82.258 | eval reward -56.39
+[a2c_01_baseline] frames  145600 | entropy 0.668 | train reward -57.531 | eval reward -80.10
+[a2c_01_baseline] frames  150016 | entropy 0.866 | train reward -44.824 | eval reward -33.14
+[a2c_01_baseline] done in 14.2 min | eval reward -33.14 | graduations 0.00 | relapses 0.00 | in crisis 2.20

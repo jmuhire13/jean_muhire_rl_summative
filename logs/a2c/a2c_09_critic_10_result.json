@@ -1,0 +1,12 @@
+{
+  "run": "a2c_09_critic_10",
+  "changes": "critic_coeff=1.0",
+  "eval_reward_mean": -34.825048388348655,
+  "eval_reward_std": 17.690959580189947,
+  "graduations": 0.0,
+  "relapses": 0.0,
+  "in_crisis": 2.4,
+  "lasting_score": 0.21448434881883158,
+  "best_eval_during_training": -34.825,
+  "minutes": 13.7
+}

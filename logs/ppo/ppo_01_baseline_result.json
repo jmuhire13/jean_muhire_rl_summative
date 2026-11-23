@@ -1,0 +1,12 @@
+{
+  "run": "ppo_01_baseline",
+  "changes": "baseline",
+  "eval_reward_mean": -37.99970385650775,
+  "eval_reward_std": 15.988264364075505,
+  "graduations": 0.0,
+  "relapses": 0.0,
+  "in_crisis": 2.4,
+  "lasting_score": 0.2175188020029219,
+  "best_eval_during_training": -38.0,
+  "minutes": 13.1
+}

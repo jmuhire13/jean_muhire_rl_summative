@@ -1,0 +1,17 @@
+[92m2026-11-23 11:02:54,612 [torchrl][INFO][0m    Initialized LazyTensorStorage with torch.Size([50000]) shape[92m [END][0m
+[dqn_11_slow_decay] frames   10400 | epsilon 0.927 | loss 0.52461 | train reward -207.547 | eval reward -281.94
+[dqn_11_slow_decay] frames   20800 | epsilon 0.854 | loss 0.54196 | train reward -219.255 | eval reward -270.15
+[dqn_11_slow_decay] frames   31200 | epsilon 0.781 | loss 0.68234 | train reward -238.816 | eval reward -204.32
+[dqn_11_slow_decay] frames   41600 | epsilon 0.707 | loss 0.76673 | train reward -176.266 | eval reward -190.44
+[dqn_11_slow_decay] frames   52000 | epsilon 0.634 | loss 0.89682 | train reward -196.488 | eval reward -202.88
+[dqn_11_slow_decay] frames   62400 | epsilon 0.561 | loss 0.92699 | train reward -205.626 | eval reward -182.23
+[dqn_11_slow_decay] frames   72800 | epsilon 0.488 | loss 1.00122 | train reward -198.505 | eval reward -160.80
+[dqn_11_slow_decay] frames   83200 | epsilon 0.415 | loss 1.17284 | train reward -194.6 | eval reward -187.22
+[dqn_11_slow_decay] frames   93600 | epsilon 0.342 | loss 1.18893 | train reward -154.953 | eval reward -109.34
+[dqn_11_slow_decay] frames  104000 | epsilon 0.269 | loss 1.23189 | train reward -185.731 | eval reward -120.86
+[dqn_11_slow_decay] frames  114400 | epsilon 0.195 | loss 1.29447 | train reward -128.797 | eval reward -145.29
+[dqn_11_slow_decay] frames  124800 | epsilon 0.122 | loss 1.3953 | train reward -208.334 | eval reward -98.38
+[dqn_11_slow_decay] frames  135200 | epsilon 0.050 | loss 1.40612 | train reward -144.005 | eval reward -153.06
+[dqn_11_slow_decay] frames  145600 | epsilon 0.050 | loss 1.4804 | train reward -174.481 | eval reward -164.68
+[dqn_11_slow_decay] frames  150280 | epsilon 0.050 | loss 1.40913 | train reward -132.176 | eval reward -149.80
+[dqn_11_slow_decay] done in 136.3 min | eval reward -98.38 | graduations 1.05 | relapses 1.95 | in crisis 6.15

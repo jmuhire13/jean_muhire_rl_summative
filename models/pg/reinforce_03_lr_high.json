@@ -1,0 +1,19 @@
+{
+  "hidden_layers": [
+    128,
+    128
+  ],
+  "total_frames": 150000,
+  "reward_scale": 0.1,
+  "max_grad_norm": 1.0,
+  "learning_rate": 0.005,
+  "gamma": 0.99,
+  "episodes_per_batch": 5,
+  "use_baseline": true,
+  "normalize_returns": true,
+  "entropy_coeff": 0.01,
+  "run": "reinforce_03_lr_high",
+  "seed": 0,
+  "algorithm": "reinforce",
+  "activation": "tanh"
+}

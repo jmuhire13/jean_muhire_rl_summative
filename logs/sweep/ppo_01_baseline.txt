@@ -1,0 +1,16 @@
+[ppo_01_baseline] frames   10400 | entropy 1.926 | train reward -188.93 | eval reward -227.58
+[ppo_01_baseline] frames   20800 | entropy 1.276 | train reward -125.47 | eval reward -146.88
+[ppo_01_baseline] frames   31200 | entropy 1.335 | train reward -149.92 | eval reward -146.88
+[ppo_01_baseline] frames   41600 | entropy 1.113 | train reward -137.732 | eval reward -146.88
+[ppo_01_baseline] frames   52000 | entropy 1.098 | train reward -109.596 | eval reward -146.88
+[ppo_01_baseline] frames   62400 | entropy 1.042 | train reward -103.834 | eval reward -100.97
+[ppo_01_baseline] frames   72800 | entropy 1.047 | train reward -88.012 | eval reward -108.28
+[ppo_01_baseline] frames   83200 | entropy 0.903 | train reward -95.338 | eval reward -124.89
+[ppo_01_baseline] frames   93600 | entropy 0.901 | train reward -78.819 | eval reward -147.08
+[ppo_01_baseline] frames  104000 | entropy 0.823 | train reward -75.366 | eval reward -42.89
+[ppo_01_baseline] frames  114400 | entropy 0.736 | train reward -68.138 | eval reward -42.33
+[ppo_01_baseline] frames  124800 | entropy 0.673 | train reward -78.554 | eval reward -50.63
+[ppo_01_baseline] frames  135200 | entropy 0.688 | train reward -49.711 | eval reward -41.92
+[ppo_01_baseline] frames  145600 | entropy 0.653 | train reward -44.123 | eval reward -38.00
+[ppo_01_baseline] frames  150800 | entropy 0.656 | train reward -65.638 | eval reward -42.16
+[ppo_01_baseline] done in 13.1 min | eval reward -38.00 | graduations 0.00 | relapses 0.00 | in crisis 2.40

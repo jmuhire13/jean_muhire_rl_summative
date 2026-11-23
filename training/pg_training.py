@@ -233,14 +233,22 @@ def actor_critic_update(data, loss_module, advantage_module, optimizer, config, 
         for start in range(0, len(data), minibatch):
             batch = data[order[start:start + minibatch]]
             out = loss_module(batch)
-            loss = out["loss_objective"] + out["loss_critic"] + out["loss_entropy"]
+            loss = out["loss_objective"] + out["loss_critic"]
+            # When entropy_coeff is 0, TorchRL's A2C loss leaves out the entropy terms
+            if "loss_entropy" in out.keys():
+                loss = loss + out["loss_entropy"]
+                entropy = out["entropy"].item()
+            else:
+                # still measure the entropy so it can be plotted
+                with torch.no_grad():
+                    entropy = loss_module.actor_network.get_dist(batch).entropy().mean().item()
             optimizer.zero_grad()
             loss.backward()
             torch.nn.utils.clip_grad_norm_(loss_module.parameters(), config["max_grad_norm"])
             optimizer.step()
             logs["policy_loss"].append(out["loss_objective"].item())
             logs["critic_loss"].append(out["loss_critic"].item())
-            logs["entropy"].append(out["entropy"].item())
+            logs["entropy"].append(entropy)
     return {key: sum(values) / len(values) for key, values in logs.items()}
 
 

@@ -1,0 +1,18 @@
+run,changes,eval_reward_mean,eval_reward_std,graduations,relapses,in_crisis,lasting_score,minutes
+dqn_01_baseline,baseline,-64.33,36.12,4.4,0.4,4.7,0.39,17.3
+dqn_02_lr_low,learning_rate=0.0001,-83.18,23.46,0.0,0.0,11.75,0.18,17.2
+dqn_03_lr_high,learning_rate=0.005,-115.89,27.2,0.0,3.35,11.5,0.18,17.4
+dqn_04_gamma_090,gamma=0.9,-87.11,26.33,0.75,0.15,3.0,0.38,17.3
+dqn_05_gamma_0999,gamma=0.999,-121.73,27.31,0.7,4.1,6.85,0.29,17.5
+dqn_06_batch_32,batch_size=32,-67.83,30.0,0.0,0.0,9.55,0.18,17.2
+dqn_07_small_buffer,buffer_size=5000,-74.8,41.65,3.65,1.55,4.5,0.39,17.5
+dqn_08_eps_end_001,eps_end=0.01,-106.71,27.67,0.0,6.3,10.9,0.19,17.5
+dqn_09_eps_end_020,eps_end=0.2,-108.36,34.35,1.35,4.15,6.35,0.32,136.3
+dqn_10_fast_decay,eps_decay_fraction=0.1,-107.71,18.94,0.0,0.5,11.8,0.17,136.2
+dqn_11_slow_decay,eps_decay_fraction=0.9,-98.38,28.34,1.05,1.95,6.15,0.31,136.3
+dqn_12_target_freq_50,target_update_interval=50,-88.73,40.49,3.45,1.0,3.1,0.42,136.2
+dqn_13_soft_target,"target_update=soft, target_tau=0.01",-84.0,20.57,0.0,3.3,9.1,0.18,14.9
+dqn_14_double_dqn,double_dqn=True,-117.56,19.99,0.0,2.15,11.9,0.17,15.1
+dqn_15_small_network,hidden_layers=[64],-53.38,23.26,0.0,0.9,8.1,0.19,13.2
+dqn_16_l2_loss,loss_function=l2,-80.07,19.57,0.0,1.35,11.45,0.17,14.5
+dqn_17_reward_scale,reward_scale=0.1,-21.38,40.34,5.8,0.15,0.8,0.48,14.8

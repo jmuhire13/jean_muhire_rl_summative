@@ -1,0 +1,12 @@
+{
+  "run": "dqn_15_small_network",
+  "changes": "hidden_layers=[64]",
+  "eval_reward_mean": -53.38287993898503,
+  "eval_reward_std": 23.2591143406172,
+  "graduations": 0.0,
+  "relapses": 0.9,
+  "in_crisis": 8.1,
+  "lasting_score": 0.18570119375519423,
+  "best_eval_during_training": -53.383,
+  "minutes": 13.2
+}

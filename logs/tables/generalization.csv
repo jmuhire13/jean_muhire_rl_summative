@@ -1,0 +1,16 @@
+scenario,agent,eval_reward_mean,eval_reward_std,graduations,relapses,in_crisis,lasting_score
+Exam programs (20),DQN,-21.384,40.344,5.8,0.15,0.8,0.482
+Exam programs (20),REINFORCE,-6.034,20.18,0.0,0.0,0.0,0.457
+Exam programs (20),PPO,-8.735,22.453,0.0,0.0,0.0,0.447
+Exam programs (20),A2C,-33.139,18.209,0.0,0.0,2.2,0.222
+Exam programs (20),Rule-based,8.484,22.103,0.5,0.0,0.0,0.49
+Unseen programs (50),DQN,-39.226,54.191,5.2,0.28,0.96,0.464
+Unseen programs (50),REINFORCE,-17.092,29.678,0.02,0.06,0.04,0.446
+Unseen programs (50),PPO,-18.272,30.71,0.0,0.0,0.04,0.438
+Unseen programs (50),A2C,-36.966,31.612,0.0,0.0,2.48,0.216
+Unseen programs (50),Rule-based,-3.628,30.873,0.32,0.0,0.12,0.477
+Harsher shocks (50),DQN,-149.804,51.164,0.9,4.12,1.62,0.33
+Harsher shocks (50),REINFORCE,-78.496,42.827,0.0,0.66,0.96,0.336
+Harsher shocks (50),PPO,-74.614,42.962,0.0,0.0,0.96,0.325
+Harsher shocks (50),A2C,-92.75,35.797,0.0,0.0,7.08,0.159
+Harsher shocks (50),Rule-based,-74.168,42.762,0.02,0.0,1.1,0.338

@@ -1,0 +1,12 @@
+{
+  "run": "dqn_06_batch_32",
+  "changes": "batch_size=32",
+  "eval_reward_mean": -67.82894853066463,
+  "eval_reward_std": 29.998083505307225,
+  "graduations": 0.0,
+  "relapses": 0.0,
+  "in_crisis": 9.55,
+  "lasting_score": 0.180594334587233,
+  "best_eval_during_training": -67.829,
+  "minutes": 17.2
+}

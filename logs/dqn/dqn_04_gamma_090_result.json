@@ -1,0 +1,12 @@
+{
+  "run": "dqn_04_gamma_090",
+  "changes": "gamma=0.9",
+  "eval_reward_mean": -87.11202950293314,
+  "eval_reward_std": 26.33078042539174,
+  "graduations": 0.75,
+  "relapses": 0.15,
+  "in_crisis": 3.0,
+  "lasting_score": 0.3787862373603854,
+  "best_eval_during_training": -87.112,
+  "minutes": 17.3
+}

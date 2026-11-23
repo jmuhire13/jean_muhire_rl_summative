@@ -1,0 +1,12 @@
+{
+  "run": "dqn_12_target_freq_50",
+  "changes": "target_update_interval=50",
+  "eval_reward_mean": -88.73112301658608,
+  "eval_reward_std": 40.48960055499973,
+  "graduations": 3.45,
+  "relapses": 1.0,
+  "in_crisis": 3.1,
+  "lasting_score": 0.41837688599508904,
+  "best_eval_during_training": -88.731,
+  "minutes": 136.2
+}

@@ -1,0 +1,16 @@
+[reinforce_09_high_entropy] frames   10400 | entropy 2.008 | train reward -206.625 | eval reward -227.53
+[reinforce_09_high_entropy] frames   20800 | entropy 1.939 | train reward -178.623 | eval reward -158.39
+[reinforce_09_high_entropy] frames   31200 | entropy 1.919 | train reward -196.806 | eval reward -148.21
+[reinforce_09_high_entropy] frames   41600 | entropy 1.925 | train reward -164.319 | eval reward -227.58
+[reinforce_09_high_entropy] frames   52000 | entropy 1.870 | train reward -146.364 | eval reward -67.44
+[reinforce_09_high_entropy] frames   62400 | entropy 1.881 | train reward -133.043 | eval reward -11.89
+[reinforce_09_high_entropy] frames   72800 | entropy 1.797 | train reward -118.546 | eval reward -8.73
+[reinforce_09_high_entropy] frames   83200 | entropy 1.573 | train reward -88.456 | eval reward -8.73
+[reinforce_09_high_entropy] frames   93600 | entropy 1.704 | train reward -76.021 | eval reward -8.73
+[reinforce_09_high_entropy] frames  104000 | entropy 1.779 | train reward -119.87 | eval reward -8.73
+[reinforce_09_high_entropy] frames  114400 | entropy 1.860 | train reward -123.35 | eval reward -8.73
+[reinforce_09_high_entropy] frames  124800 | entropy 1.885 | train reward -124.395 | eval reward -6.03
+[reinforce_09_high_entropy] frames  135200 | entropy 1.856 | train reward -100.79 | eval reward -12.61
+[reinforce_09_high_entropy] frames  145600 | entropy 1.829 | train reward -84.728 | eval reward -7.44
+[reinforce_09_high_entropy] frames  150280 | entropy 1.790 | train reward -78.254 | eval reward -7.50
+[reinforce_09_high_entropy] done in 13.0 min | eval reward -6.03 | graduations 0.00 | relapses 0.00 | in crisis 0.00

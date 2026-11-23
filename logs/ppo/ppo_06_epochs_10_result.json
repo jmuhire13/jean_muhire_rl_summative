@@ -1,0 +1,12 @@
+{
+  "run": "ppo_06_epochs_10",
+  "changes": "epochs=10",
+  "eval_reward_mean": -37.83752715880516,
+  "eval_reward_std": 16.505931060614476,
+  "graduations": 0.0,
+  "relapses": 0.0,
+  "in_crisis": 1.9,
+  "lasting_score": 0.22223647177318054,
+  "best_eval_during_training": -37.838,
+  "minutes": 15.3
+}

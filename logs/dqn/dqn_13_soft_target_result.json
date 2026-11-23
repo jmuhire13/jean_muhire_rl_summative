@@ -1,0 +1,12 @@
+{
+  "run": "dqn_13_soft_target",
+  "changes": "target_update=soft, target_tau=0.01",
+  "eval_reward_mean": -83.99624284821985,
+  "eval_reward_std": 20.57146435359761,
+  "graduations": 0.0,
+  "relapses": 3.3,
+  "in_crisis": 9.1,
+  "lasting_score": 0.18186490283171403,
+  "best_eval_during_training": -83.996,
+  "minutes": 14.9
+}

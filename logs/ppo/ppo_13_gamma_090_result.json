@@ -1,0 +1,12 @@
+{
+  "run": "ppo_13_gamma_090",
+  "changes": "gamma=0.9",
+  "eval_reward_mean": -105.1295671340753,
+  "eval_reward_std": 15.95405444751654,
+  "graduations": 0.0,
+  "relapses": 0.0,
+  "in_crisis": 11.9,
+  "lasting_score": 0.16753247424616619,
+  "best_eval_during_training": -105.13,
+  "minutes": 13.7
+}
