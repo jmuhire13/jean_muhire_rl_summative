@@ -686,7 +686,12 @@ socket.addEventListener("open", async () => {
     if (name === info.default_policy) option.selected = true;
     select.appendChild(option);
   }
-  restart();
+  await restart();
+
+  // Optional settings in the address, for example /?autoplay=1&speed=8
+  const params = new URLSearchParams(location.search);
+  if (params.has("speed")) $("speed-input").value = params.get("speed");
+  if (params.get("autoplay") === "1") $("play-btn").click();
 });
 
 socket.addEventListener("close", () => {
@@ -717,7 +722,7 @@ function restart() {
   $("play-btn").textContent = "Play";
   $("event-log").innerHTML = "";
   selectedHousehold = null;
-  send({ type: "reset", policy: $("policy-select").value, seed: Number($("seed-input").value) });
+  return send({ type: "reset", policy: $("policy-select").value, seed: Number($("seed-input").value) });
 }
 
 function stepDelay() {

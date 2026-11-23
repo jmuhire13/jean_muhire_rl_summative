@@ -233,6 +233,38 @@ def figure_pg_entropy(algorithms):
     save_figure(fig, "fig3_pg_entropy.png")
 
 
+def figure_training_stability(algorithms):
+    """DQN loss and policy entropy side by side (a compact version of
+    fig2 and fig3 for the report)."""
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4.2))
+
+    run = best_run("dqn")
+    log = training_log("dqn", run).dropna(subset=["loss"])
+    ax1.plot(log["frames"], log["loss"], color=COLORS["dqn"], alpha=0.3, linewidth=1, label="Per batch")
+    ax1.plot(log["frames"], log["loss"].rolling(20, min_periods=1).mean(), color=COLORS["dqn"],
+             linewidth=2, label="Moving average (20 batches)")
+    # mark where epsilon reaches its final value
+    explore_end = log.loc[log["epsilon"] <= log["epsilon"].min() + 1e-6, "frames"].min()
+    ax1.axvline(explore_end, color=MUTED, linestyle=":", linewidth=1)
+    ax1.text(explore_end, ax1.get_ylim()[1], " ε reaches 0.05", va="top", fontsize=8, color=MUTED)
+    style_axes(ax1, f"DQN objective: Huber TD loss ({run})", "Environment steps (frames)", "Loss")
+    ax1.legend(frameon=False, fontsize=8, loc="center left")
+
+    for algorithm in [a for a in algorithms if a != "dqn"]:
+        run = best_run(algorithm)
+        log = training_log(algorithm, run)
+        ax2.plot(log["frames"], log["entropy"].rolling(5, min_periods=1).mean(),
+                 color=COLORS[algorithm], linewidth=2, label=f"{LABELS[algorithm]} ({run})")
+    ax2.axhline(np.log(8), color=MUTED, linestyle="--", linewidth=1)
+    ax2.text(0.01, np.log(8), " fully random (ln 8 = 2.08)", transform=ax2.get_yaxis_transform(),
+             va="bottom", fontsize=8, color=MUTED)
+    style_axes(ax2, "Policy entropy (best policy gradient runs)", "Environment steps (frames)",
+               "Entropy (nats)")
+    ax2.legend(frameon=False, fontsize=8, loc="lower left")
+    fig.tight_layout()
+    save_figure(fig, "fig_training_stability.png")
+
+
 def figure_sweeps(algorithms, scores):
     fig, axes = plt.subplots(2, 2, figsize=(12, 8), sharey=True)
     for ax, algorithm in zip(axes.flat, ALGORITHMS):
@@ -367,6 +399,8 @@ def main():
     figure_reward_comparison(algorithms, scores)
     figure_dqn_objective()
     figure_pg_entropy(algorithms)
+    if "dqn" in algorithms:
+        figure_training_stability(algorithms)
     figure_sweeps(algorithms, scores)
     generalization = make_generalization(algorithms)
     figure_behaviour(algorithms)
