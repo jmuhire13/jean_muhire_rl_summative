@@ -97,8 +97,17 @@ What the agents learned:
 - **A2C** learned to give cash transfers: food looks fine today, but no lasting income is built.
 - Runs with a short planning horizon (gamma 0.90) fell back to cash every time.
 
-Figures are in `assets/`: rewards during training, DQN loss, policy entropy, all sweeps,
-generalization to unseen and harsher programs, and the actions each agent chooses.
+Figures are in `assets/`. Their numbers match the figures in the report:
+
+| File | What it shows |
+|---|---|
+| `fig1_environment.png` | the 3D village during a program |
+| `fig2_rewards.png` | reward during training, best run of each algorithm |
+| `fig3_behaviour.png` | which actions each agent chooses |
+| `fig4_training_stability.png` | DQN loss and policy entropy during training |
+| `fig5_generalization.png` | best agents on unseen and harsher programs |
+| `extra_sweeps.png` | every hyperparameter run (extra, not in the report) |
+
 Full tables are in `logs/tables/`.
 
 ## Project structure

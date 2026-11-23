@@ -5,12 +5,13 @@ What it makes:
   1. Picks the best run of each algorithm (models/*/best_<algorithm>.pt)
   2. Hyperparameter tables, one per algorithm           -> logs/tables/
   3. Figures                                           -> assets/
-       fig1_reward_comparison.png   evaluation reward during training, best run of each algorithm
-       fig2_dqn_objective.png       DQN loss and epsilon during training
-       fig3_pg_entropy.png          policy entropy of REINFORCE, PPO and A2C
-       fig4_sweeps.png              every hyperparameter run, per algorithm
+     The numbers match the figure numbers in the report.
+       fig2_rewards.png             reward during training, best run of each algorithm
+       fig3_behaviour.png           which actions each best agent chooses
+       fig4_training_stability.png  DQN loss (left) and policy entropy (right)
        fig5_generalization.png      best agents on unseen and harsher programs
-       fig6_behaviour.png           which actions each best agent chooses
+       extra_sweeps.png             every hyperparameter run, per algorithm (not in the report)
+     fig1_environment.png (the village picture) is a screenshot of the 3D view, not made here.
   4. Convergence and generalization tables              -> logs/tables/
 
 Usage:
@@ -106,14 +107,6 @@ def baseline_scores():
     return scores
 
 
-def draw_baselines(ax, scores, x_end):
-    names = {"rule_based": "Rule-based officer", "cash_only": "Cash-only officer", "random": "Random officer"}
-    for key, value in scores.items():
-        ax.axhline(value, color=MUTED, linestyle="--", linewidth=1)
-        ax.text(x_end * 1.02, value, f"{names[key]} ({value:.0f})", va="bottom", fontsize=8,
-                color=MUTED, bbox={"facecolor": "white", "edgecolor": "none", "pad": 1})
-
-
 # ---------------------------------------------------------------------------
 # 1. Best runs and hyperparameter tables
 # ---------------------------------------------------------------------------
@@ -194,48 +187,12 @@ def figure_reward_comparison(algorithms, scores):
     fig.suptitle("Cumulative reward per program during training (best run of each algorithm)",
                  x=0.01, ha="left", fontsize=13, fontweight="bold", color=TEXT)
     fig.tight_layout()
-    save_figure(fig, "fig1_reward_comparison.png")
-
-
-def figure_dqn_objective():
-    if not (LOGS_FOLDER / "dqn_summary.csv").exists():
-        return
-    run = best_run("dqn")
-    log = training_log("dqn", run).dropna(subset=["loss"])
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(9, 6), sharex=True,
-                                   gridspec_kw={"height_ratios": [2, 1]})
-    ax1.plot(log["frames"], log["loss"], color=COLORS["dqn"], alpha=0.3, linewidth=1, label="Per batch")
-    ax1.plot(log["frames"], log["loss"].rolling(20, min_periods=1).mean(), color=COLORS["dqn"],
-             linewidth=2, label="Moving average (20 batches)")
-    style_axes(ax1, f"DQN objective: Huber TD loss ({run})", "", "Loss")
-    ax1.legend(frameon=False, fontsize=9)
-    ax2.plot(log["frames"], log["epsilon"], color=MUTED, linewidth=2)
-    style_axes(ax2, "Exploration rate (epsilon)", "Environment steps (frames)", "Epsilon")
-    save_figure(fig, "fig2_dqn_objective.png")
-
-
-def figure_pg_entropy(algorithms):
-    pg = [a for a in algorithms if a != "dqn"]
-    if not pg:
-        return
-    fig, ax = plt.subplots(figsize=(9, 4.5))
-    for algorithm in pg:
-        run = best_run(algorithm)
-        log = training_log(algorithm, run)
-        ax.plot(log["frames"], log["entropy"].rolling(5, min_periods=1).mean(),
-                color=COLORS[algorithm], linewidth=2, label=f"{LABELS[algorithm]} ({run})")
-    ax.axhline(np.log(8), color=MUTED, linestyle="--", linewidth=1)
-    ax.text(ax.get_xlim()[0], np.log(8), " fully random policy (ln 8 = 2.08)", va="bottom",
-            fontsize=8, color=MUTED)
-    style_axes(ax, "Policy entropy during training (best runs)", "Environment steps (frames)",
-               "Entropy (nats)")
-    ax.legend(frameon=False, fontsize=9)
-    save_figure(fig, "fig3_pg_entropy.png")
+    save_figure(fig, "fig2_rewards.png")
 
 
 def figure_training_stability(algorithms):
-    """DQN loss and policy entropy side by side (a compact version of
-    fig2 and fig3 for the report)."""
+    """Left: the DQN loss of the best DQN run. Right: the policy entropy of the
+    best REINFORCE, PPO and A2C runs."""
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4.2))
 
     run = best_run("dqn")
@@ -262,7 +219,7 @@ def figure_training_stability(algorithms):
                "Entropy (nats)")
     ax2.legend(frameon=False, fontsize=8, loc="lower left")
     fig.tight_layout()
-    save_figure(fig, "fig_training_stability.png")
+    save_figure(fig, "fig4_training_stability.png")
 
 
 def figure_sweeps(algorithms, scores):
@@ -292,7 +249,7 @@ def figure_sweeps(algorithms, scores):
         ax.legend(frameon=False, fontsize=8, loc="lower right")
     fig.suptitle("Hyperparameter sweeps (grey = other runs, dotted = rule-based officer)",
                  x=0.01, ha="left", fontsize=11, color=MUTED)
-    save_figure(fig, "fig4_sweeps.png")
+    save_figure(fig, "extra_sweeps.png")
 
 
 def make_generalization(algorithms):
@@ -380,7 +337,7 @@ def figure_behaviour(algorithms):
     ax.xaxis.set_major_formatter(matplotlib.ticker.PercentFormatter(1.0))
     style_axes(ax, "What each officer does: share of weekly decisions by action", "", "")
     ax.legend(frameon=False, fontsize=8, ncol=4, loc="upper center", bbox_to_anchor=(0.5, -0.12))
-    save_figure(fig, "fig6_behaviour.png")
+    save_figure(fig, "fig3_behaviour.png")
     with open(TABLES / "behaviour.json", "w") as f:
         json.dump({n: dict(zip(ACTION_NAMES, np.round(s, 3).tolist())) for n, s in shares.items()}, f, indent=2)
 
@@ -397,8 +354,6 @@ def main():
     scores = baseline_scores()
     convergence = make_convergence_table(algorithms)
     figure_reward_comparison(algorithms, scores)
-    figure_dqn_objective()
-    figure_pg_entropy(algorithms)
     if "dqn" in algorithms:
         figure_training_stability(algorithms)
     figure_sweeps(algorithms, scores)
