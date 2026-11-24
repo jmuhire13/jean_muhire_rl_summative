@@ -7,9 +7,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
-// ---------------------------------------------------------------------------
 // Settings
-// ---------------------------------------------------------------------------
 const NUM_HOUSEHOLDS = 12;
 const VILLAGE_RADIUS = 15;          // houses sit on a circle around the office
 const ACTION_ICONS = ["👁", "💵", "🐐", "🛠", "➕", "🏦", "📋", "🎓"];
@@ -27,9 +25,7 @@ const COLORS = {
   path: new THREE.Color("#b98f5e"),
 };
 
-// ---------------------------------------------------------------------------
 // Basic scene: renderer, camera, lights
-// ---------------------------------------------------------------------------
 const container = document.getElementById("scene");
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -70,9 +66,7 @@ sun.shadow.camera.top = 35;
 sun.shadow.camera.bottom = -35;
 scene.add(sun);
 
-// ---------------------------------------------------------------------------
 // Ground, paths and trees
-// ---------------------------------------------------------------------------
 const groundMaterial = new THREE.MeshStandardMaterial({ color: COLORS.grass.clone(), roughness: 1 });
 const ground = new THREE.Mesh(new THREE.CircleGeometry(70, 64), groundMaterial);
 ground.rotation.x = -Math.PI / 2;
@@ -125,9 +119,7 @@ for (let i = 0; i < 60; i++) {
   treeLeaves.push(leaves);
 }
 
-// ---------------------------------------------------------------------------
 // NGO office in the middle of the village
-// ---------------------------------------------------------------------------
 function buildOffice() {
   const office = new THREE.Group();
   const walls = new THREE.Mesh(
@@ -159,9 +151,7 @@ function buildOffice() {
 }
 const office = buildOffice();
 
-// ---------------------------------------------------------------------------
 // Households
-// ---------------------------------------------------------------------------
 function buildGoat() {
   const goat = new THREE.Group();
   const white = new THREE.MeshStandardMaterial({ color: "#f2efe6" });
@@ -301,9 +291,7 @@ function buildHouse(index) {
 const houses = [];
 for (let i = 0; i < NUM_HOUSEHOLDS; i++) houses.push(buildHouse(i));
 
-// ---------------------------------------------------------------------------
 // Program officer who walks to the household under review
-// ---------------------------------------------------------------------------
 function buildOfficer() {
   const officer = new THREE.Group();
   const body = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.36, 1.1, 14), new THREE.MeshStandardMaterial({ color: "#2f6fb5" }));
@@ -336,9 +324,7 @@ document.getElementById("labels").appendChild(bubble);
 let bubbleHousehold = 0;
 let bubbleUntil = 0;
 
-// ---------------------------------------------------------------------------
 // Drought dust
-// ---------------------------------------------------------------------------
 const dustCount = 600;
 const dustPositions = new Float32Array(dustCount * 3);
 for (let i = 0; i < dustCount; i++) {
@@ -353,9 +339,7 @@ scene.add(dust);
 let droughtLevel = 0;      // shown on screen, from 0 to 1
 let droughtTarget = 0;
 
-// ---------------------------------------------------------------------------
 // Turning a lasting score into a colour
-// ---------------------------------------------------------------------------
 function scoreColor(score, inCrisis) {
   if (inCrisis) return COLORS.red.clone();
   const t = THREE.MathUtils.clamp((score - 0.2) / 0.35, 0, 1);
@@ -363,9 +347,7 @@ function scoreColor(score, inCrisis) {
   return COLORS.amber.clone().lerp(COLORS.green, (t - 0.5) * 2);
 }
 
-// ---------------------------------------------------------------------------
 // Applying new data from the server to the 3D scene
-// ---------------------------------------------------------------------------
 let currentHousehold = 0;
 let selectedHousehold = null;   // null means "follow the household under review"
 let lastSnapshot = null;
@@ -417,9 +399,7 @@ function applySnapshot(snap) {
   updatePanels(snap);
 }
 
-// ---------------------------------------------------------------------------
 // Panels around the scene
-// ---------------------------------------------------------------------------
 const $ = (id) => document.getElementById(id);
 
 function formatSigned(value) {
@@ -567,9 +547,7 @@ renderer.domElement.addEventListener("click", (event) => {
   updateHouseholdPanel();
 });
 
-// ---------------------------------------------------------------------------
 // Animation loop: runs every frame
-// ---------------------------------------------------------------------------
 const clock = new THREE.Clock();
 const screenPosition = new THREE.Vector3();
 
@@ -667,9 +645,7 @@ window.addEventListener("resize", () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-// ---------------------------------------------------------------------------
 // Talking to the Python server
-// ---------------------------------------------------------------------------
 const socket = new WebSocket(`ws://${location.host}/ws`);
 let waitingForReply = null;    // resolves when the next snapshot arrives
 let playing = false;

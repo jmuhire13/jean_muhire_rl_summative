@@ -27,7 +27,7 @@ html, body {
 #scene { position: fixed; inset: 0; }
 #scene canvas { display: block; }
 
-/* ---------- Panels ---------- */
+/* Panels */
 .panel {
   position: fixed;
   background: var(--panel);
@@ -53,7 +53,7 @@ html, body {
   max-width: calc(100vw - 32px);
 }
 
-/* ---------- Stats ---------- */
+/* Stats */
 .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
 .stat-label span { color: var(--text); text-transform: none; letter-spacing: 0; float: right; font-family: "JetBrains Mono", monospace; }
 .stat.wide { margin-bottom: 10px; }
@@ -73,13 +73,13 @@ html, body {
 .dot.lasting { background: var(--good); }
 .dot.crisis { background: var(--bad); }
 
-/* ---------- Action card ---------- */
+/* Action card */
 .action-text { font-size: 18px; font-weight: 700; margin-top: 4px; }
 .action-sub { color: var(--muted); margin-top: 4px; font-family: "JetBrains Mono", monospace; font-size: 12px; }
 .action-panel.flash { animation: flash 0.5s ease; }
 @keyframes flash { from { box-shadow: 0 0 0 2px var(--accent); } to { box-shadow: 0 10px 30px rgba(0,0,0,0.35); } }
 
-/* ---------- Household panel ---------- */
+/* Household panel */
 .panel-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
 .hh-title { font-size: 20px; font-weight: 700; }
 .badge { padding: 4px 10px; border-radius: 99px; font-size: 11px; font-weight: 600; background: rgba(79, 163, 255, 0.18); color: var(--accent); }
@@ -98,7 +98,7 @@ html, body {
 .chip.on { background: rgba(95, 208, 138, 0.16); color: var(--good); }
 .hint { color: var(--muted); font-size: 11px; margin: 10px 0 0; }
 
-/* ---------- Event log ---------- */
+/* Event log */
 #event-log { list-style: none; padding: 0; margin: 8px 0 0; }
 #event-log li { padding: 5px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); font-size: 12px; }
 #event-log li .wk { font-family: "JetBrains Mono", monospace; color: var(--muted); margin-right: 6px; }
@@ -107,7 +107,7 @@ html, body {
 #event-log li.warn { color: #ffd9a0; font-weight: 600; }
 #event-log li.minor { color: var(--muted); font-size: 11px; opacity: 0.7; padding: 3px 0; }
 
-/* ---------- Controls ---------- */
+/* Controls */
 label { display: flex; align-items: center; gap: 6px; color: var(--muted); font-weight: 500; }
 select, input[type="number"] {
   background: rgba(255, 255, 255, 0.08); color: var(--text);
@@ -128,7 +128,7 @@ button:hover { filter: brightness(1.1); }
 .swatch.green { background: #4cbf6b; }
 .swatch.gold { background: var(--gold); }
 
-/* ---------- House labels ---------- */
+/* House labels */
 #labels { position: fixed; inset: 0; pointer-events: none; }
 .house-label {
   position: absolute; transform: translate(-50%, -100%);

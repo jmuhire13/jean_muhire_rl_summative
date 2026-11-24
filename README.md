@@ -64,7 +64,7 @@ numbers and a policy name and returns the recommended action.
 ## Training
 
 Every algorithm is trained with TorchRL for 150,000 environment steps, then tested on the same
-20 programs (seeds 5000 to 5019).
+20 programs (seeds 5000 to 5019), called the exam programs in the report.
 
 ```bash
 uv run python -m training.dqn_training --list                    # show the DQN experiments

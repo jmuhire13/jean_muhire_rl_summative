@@ -2,7 +2,7 @@
 Shared helpers used by every algorithm (DQN, REINFORCE, PPO, A2C).
 
 Using the same helpers keeps the comparison fair: every agent trains on the
-same environment and is tested on the same evaluation programs.
+same environment and is tested on the same 20 exam programs.
 """
 
 import csv
@@ -24,7 +24,7 @@ PROJECT_FOLDER = Path(__file__).resolve().parent.parent
 LOGS_FOLDER = PROJECT_FOLDER / "logs"
 MODELS_FOLDER = PROJECT_FOLDER / "models"
 
-# Fixed seeds used to test every agent on the same 20 programs
+# Fixed seeds used to test every agent on the same 20 programs (the exam programs)
 EVAL_SEEDS = list(range(5000, 5020))
 
 

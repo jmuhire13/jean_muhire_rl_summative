@@ -38,9 +38,7 @@ from training.common import (
     save_config, save_log, save_run_result,
 )
 
-# ---------------------------------------------------------------------------
 # Hyperparameters: baseline settings and experiments for each algorithm
-# ---------------------------------------------------------------------------
 SHARED = {
     "hidden_layers": [128, 128],
     "total_frames": 150_000,
@@ -62,9 +60,9 @@ BASELINES = {
         **SHARED,
         "learning_rate": 3e-4,
         "gamma": 0.99,
-        "gae_lambda": 0.95,          # balance between short and long term advantage estimates
+        "gae_lambda": 0.95,          # GAE lambda: closer to 0 trusts the critic more, closer to 1 trusts the real rewards more
         "clip_epsilon": 0.2,         # how far the policy may move in one update
-        "epochs": 4,                 # passes over each rollout
+        "epochs": 4,                 # epochs: how many times PPO learns from each rollout
         "minibatch_size": 256,
         "rollout_steps": 1040,       # steps collected before each update (10 programs)
         "entropy_coeff": 0.01,
@@ -75,7 +73,7 @@ BASELINES = {
         **SHARED,
         "learning_rate": 7e-4,
         "gamma": 0.99,
-        "gae_lambda": 1.0,           # 1.0 = classic n-step returns
+        "gae_lambda": 1.0,           # 1.0 = use the real rewards of the rollout, plus the critic's guess at its end
         "rollout_steps": 32,         # A2C updates after every 32 steps
         "entropy_coeff": 0.01,
         "critic_coeff": 0.5,
@@ -127,12 +125,10 @@ EXPERIMENTS = {
     },
 }
 
-EVAL_EVERY_FRAMES = 10_400   # test the greedy agent every 100 programs
+EVAL_EVERY_FRAMES = 10_400   # test the greedy agent (always its best action) every 100 programs
 
 
-# ---------------------------------------------------------------------------
 # Networks
-# ---------------------------------------------------------------------------
 def build_actor(env, hidden_layers):
     """Policy network: 16 observation numbers in, 8 action scores (logits) out.
     The scores are turned into probabilities, and an action is sampled."""
@@ -153,9 +149,7 @@ def build_critic(hidden_layers):
     return ValueOperator(network, in_keys=["observation"])
 
 
-# ---------------------------------------------------------------------------
 # REINFORCE update
-# ---------------------------------------------------------------------------
 def discounted_returns(rewards, dones, gamma):
     """Total future reward from each step until the end of its program.
 
@@ -215,9 +209,7 @@ def reinforce_update(data, actor_net, critic, optimizer, config):
             "entropy": entropy.item()}
 
 
-# ---------------------------------------------------------------------------
 # A2C and PPO update (both use TorchRL loss modules and GAE advantages)
-# ---------------------------------------------------------------------------
 def actor_critic_update(data, loss_module, advantage_module, optimizer, config, algorithm):
     with torch.no_grad():
         advantage_module(data)  # adds "advantage" and "value_target" to the data
@@ -252,9 +244,7 @@ def actor_critic_update(data, loss_module, advantage_module, optimizer, config, 
     return {key: sum(values) / len(values) for key, values in logs.items()}
 
 
-# ---------------------------------------------------------------------------
 # Training loop (same for all three algorithms)
-# ---------------------------------------------------------------------------
 def train(algorithm, run_name, changes, seed=0):
     config = {**BASELINES[algorithm], **changes, "run": run_name, "seed": seed,
               "algorithm": algorithm, "activation": "tanh"}

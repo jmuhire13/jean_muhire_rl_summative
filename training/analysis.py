@@ -57,9 +57,7 @@ SCENARIOS = {
 }
 
 
-# ---------------------------------------------------------------------------
 # Helpers
-# ---------------------------------------------------------------------------
 def style_axes(ax, title, xlabel, ylabel):
     ax.set_title(title, loc="left", fontsize=12, fontweight="bold", color=TEXT)
     ax.set_xlabel(xlabel, color=MUTED)
@@ -100,7 +98,7 @@ def training_log(algorithm, run):
 
 
 def eval_points(log):
-    # rows where the greedy agent was tested
+    # rows where the greedy agent (always its best action) was tested
     return log.dropna(subset=["eval_reward"])
 
 
@@ -113,9 +111,7 @@ def baseline_scores():
     return scores
 
 
-# ---------------------------------------------------------------------------
 # 1. Best runs and hyperparameter tables
-# ---------------------------------------------------------------------------
 def make_tables(algorithms):
     TABLES.mkdir(parents=True, exist_ok=True)
     columns = ["run", "changes", "eval_reward_mean", "eval_reward_std", "graduations",
@@ -165,9 +161,7 @@ def make_convergence_table(algorithms):
     return table
 
 
-# ---------------------------------------------------------------------------
 # 2. Figures
-# ---------------------------------------------------------------------------
 def figure_reward_comparison(algorithms, scores, convergence):
     """One panel per algorithm: the reward of each training program (thin line,
     smoothed) and the test reward on the 20 exam programs (thick line).
@@ -359,7 +353,6 @@ def figure_behaviour(algorithms):
         json.dump({n: dict(zip(ACTION_NAMES, np.round(s, 3).tolist())) for n, s in shares.items()}, f, indent=2)
 
 
-# ---------------------------------------------------------------------------
 def main():
     algorithms = available_algorithms()
     if not algorithms:

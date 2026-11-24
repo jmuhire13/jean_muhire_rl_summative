@@ -10,7 +10,7 @@ budget. Each week one household comes up for review and the agent picks
 one action for that household.
 
 Some actions help right away but create dependency (cash transfers).
-Other actions cost more and only pay off months later (assets, training).
+Other actions cost more and only pay off weeks later (assets, training).
 Droughts and illness can hit at any time. A household that is graduated
 too early can fall back into crisis.
 """
@@ -20,16 +20,12 @@ import gymnasium as gym
 from gymnasium import spaces
 
 
-# ---------------------------------------------------------------------------
 # Program settings
-# ---------------------------------------------------------------------------
 NUM_HOUSEHOLDS = 12
 PROGRAM_WEEKS = 104
 START_BUDGET = 120.0
 
-# ---------------------------------------------------------------------------
 # Actions
-# ---------------------------------------------------------------------------
 MONITOR = 0
 CASH_TRANSFER = 1
 GIVE_ASSET = 2
@@ -53,9 +49,7 @@ ACTION_NAMES = [
 # Cost of each action, in budget units
 ACTION_COSTS = [0.0, 2.0, 8.0, 4.0, 3.0, 1.0, 0.5, 0.0]
 
-# ---------------------------------------------------------------------------
 # Observation features (in this exact order)
-# ---------------------------------------------------------------------------
 OBSERVATION_NAMES = [
     "food_security",        # 0  from the household record
     "income",               # 1  from the household record
@@ -100,9 +94,7 @@ class AidImpactEnv(gym.Env):
             low=0.0, high=1.0, shape=(len(OBSERVATION_NAMES),), dtype=np.float32
         )
 
-    # -----------------------------------------------------------------------
     # Reset: start a new two year program
-    # -----------------------------------------------------------------------
     def reset(self, seed=None, options=None):
         super().reset(seed=seed)
         n = NUM_HOUSEHOLDS
@@ -153,9 +145,7 @@ class AidImpactEnv(gym.Env):
 
         return self._get_observation(), self._get_info()
 
-    # -----------------------------------------------------------------------
     # Step: one week of the program
-    # -----------------------------------------------------------------------
     def step(self, action):
         action = int(action)
         h = self.current
@@ -228,9 +218,7 @@ class AidImpactEnv(gym.Env):
         # True when every household graduated and passed its 12 week check
         return bool(np.all(self.graduated & self.graduation_held))
 
-    # -----------------------------------------------------------------------
     # What each action does
-    # -----------------------------------------------------------------------
     def _apply_action(self, h, action):
         if action == MONITOR:
             return  # nobody visits, records stay as they are
@@ -277,9 +265,7 @@ class AidImpactEnv(gym.Env):
         # Any staff visit refreshes the officer's record for this household
         self._update_record(h)
 
-    # -----------------------------------------------------------------------
     # One week of life for all households
-    # -----------------------------------------------------------------------
     def _simulate_week(self):
         rng = self.np_random
         n = NUM_HOUSEHOLDS
@@ -313,7 +299,7 @@ class AidImpactEnv(gym.Env):
         # Dependency fades slowly when no more handouts come
         self.dependency -= 0.004
 
-        # --- Shock 1: drought (hits the whole village for 8 weeks) ---
+        # Shock 1: drought (hits the whole village for 8 weeks)
         if self.drought_weeks_left == 0 and rng.random() < self.drought_chance:
             self.drought_weeks_left = 8
             self.last_events.append("Drought started")
@@ -326,7 +312,7 @@ class AidImpactEnv(gym.Env):
             self.savings -= 0.010  # families spend savings to cope
             self.drought_weeks_left -= 1
 
-        # --- Shock 2: illness (each household separately) ---
+        # Shock 2: illness (each household separately)
         sick = rng.random(n) < self.illness_chance
         for h in np.where(sick)[0]:
             if self.has_health_cover[h]:
@@ -344,9 +330,7 @@ class AidImpactEnv(gym.Env):
         self.weeks_since_visit += 1
         self.weeks_since_graduation[self.graduated] += 1
 
-    # -----------------------------------------------------------------------
     # Graduation outcomes (this is where the delayed reward comes from)
-    # -----------------------------------------------------------------------
     def _check_graduations(self):
         reward = 0.0
         resilience = self._resilience()
@@ -390,9 +374,7 @@ class AidImpactEnv(gym.Env):
         on_track = (self.food >= 0.40) & (self._resilience() >= 0.45)
         return 3.0 * on_track.sum()
 
-    # -----------------------------------------------------------------------
     # Scores
-    # -----------------------------------------------------------------------
     def _resilience(self):
         # Ability to cope with future shocks without outside help
         base = 0.4 * self.income + 0.3 * self.savings + 0.3 * self.health
@@ -402,9 +384,7 @@ class AidImpactEnv(gym.Env):
         # Mix of today's needs (food) and tomorrow's strength (resilience)
         return 0.4 * self.food + 0.6 * self._resilience()
 
-    # -----------------------------------------------------------------------
     # Helpers
-    # -----------------------------------------------------------------------
     def _clip_values(self):
         for values in [self.food, self.income, self.savings,
                        self.health, self.school, self.dependency]:
@@ -463,12 +443,10 @@ class AidImpactEnv(gym.Env):
             "events": list(self.last_events),
         }
 
-    # -----------------------------------------------------------------------
-    # Rendering
-    # -----------------------------------------------------------------------
+    # Showing the village as text in the terminal
     def render(self):
-        # "ansi" returns a text table, "human" prints it.
-        # The 3D view is served by environment/rendering.py (three.js in the browser).
+        # render_mode "ansi" gives back the text table, "human" prints it.
+        # The 3D village is made by environment/rendering.py (three.js in the browser).
         if self.render_mode == "ansi":
             return self._text_summary()
         if self.render_mode == "human":

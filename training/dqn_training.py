@@ -34,9 +34,7 @@ from training.common import (
     save_config, save_log, save_run_result,
 )
 
-# ---------------------------------------------------------------------------
 # Hyperparameters
-# ---------------------------------------------------------------------------
 # The baseline settings. Every experiment below changes only one or two of
 # them, so we can see the effect of each change.
 BASELINE = {
@@ -47,7 +45,7 @@ BASELINE = {
     "eps_start": 1.0,            # start fully random
     "eps_end": 0.05,             # end with 5% random actions
     "eps_decay_fraction": 0.5,   # epsilon reaches eps_end after 50% of training
-    "target_update": "hard",     # "hard" = copy every N steps, "soft" = blend slowly
+    "target_update": "hard",     # "hard" = copy every N learning updates, "soft" = blend a little after every update
     "target_update_interval": 500,
     "target_tau": 0.01,          # only used with soft updates
     "double_dqn": False,
@@ -81,7 +79,7 @@ EXPERIMENTS = {
     "dqn_17_reward_scale":   {"reward_scale": 0.1},
 }
 
-EVAL_EVERY_FRAMES = 10_400   # test the greedy agent every 100 programs
+EVAL_EVERY_FRAMES = 10_400   # test the greedy agent (always its best action) every 100 programs
 
 
 def train(run_name, changes, seed=0, quiet=False):
@@ -89,33 +87,33 @@ def train(run_name, changes, seed=0, quiet=False):
     torch.manual_seed(seed)
     torch.set_num_threads(2)  # small network: 2 CPU threads is enough, lets runs share the CPU
 
-    # --- Environment ---
+    # Environment
     env = make_env(seed=seed, reward_scale=config["reward_scale"])
     num_actions = env.action_spec.space.n
     num_inputs = env.observation_spec["observation"].shape[-1]
 
-    # --- Q-network: 16 observation numbers in, 8 action scores out ---
+    # Q-network: 16 observation numbers in, 8 action scores out
     q_network = MLP(in_features=num_inputs, out_features=num_actions,
                     num_cells=config["hidden_layers"], activation_class=torch.nn.ReLU)
     actor = QValueActor(q_network, in_keys=["observation"], spec=env.action_spec)
 
-    # --- Exploration: epsilon-greedy ---
+    # Exploration: epsilon-greedy
     decay_steps = int(config["eps_decay_fraction"] * config["total_frames"])
     exploration = EGreedyModule(env.action_spec, eps_init=config["eps_start"],
                                 eps_end=config["eps_end"], annealing_num_steps=decay_steps)
     explore_policy = TensorDictSequential(actor, exploration)
 
-    # --- Data collector: runs the environment with the exploring policy ---
+    # Data collector: runs the environment with the exploring policy
     collector = Collector(env, explore_policy,
                           frames_per_batch=config["frames_per_batch"],
                           total_frames=config["total_frames"],
                           init_random_frames=config["random_start_frames"])
 
-    # --- Replay buffer ---
+    # Replay buffer
     buffer = ReplayBuffer(storage=LazyTensorStorage(config["buffer_size"]),
                           batch_size=config["batch_size"])
 
-    # --- Loss, target network and optimizer ---
+    # Loss, target network and optimizer
     loss_module = DQNLoss(actor, action_space=env.action_spec, delay_value=True,
                           double_dqn=config["double_dqn"], loss_function=config["loss_function"])
     loss_module.make_value_estimator(gamma=config["gamma"])
@@ -125,7 +123,7 @@ def train(run_name, changes, seed=0, quiet=False):
         target_updater = SoftUpdate(loss_module, tau=config["target_tau"])
     optimizer = torch.optim.Adam(loss_module.parameters(), lr=config["learning_rate"])
 
-    # --- Training loop ---
+    # Training loop
     log_rows = []
     frames = 0
     next_eval = EVAL_EVERY_FRAMES
@@ -164,7 +162,7 @@ def train(run_name, changes, seed=0, quiet=False):
             "eval_reward": "",
         }
 
-        # test the greedy agent (no exploration) on the fixed evaluation programs
+        # test the greedy agent (no exploration) on the 20 exam programs
         if frames >= next_eval or frames >= config["total_frames"]:
             next_eval += EVAL_EVERY_FRAMES
             results = evaluate(choose_action)
@@ -182,7 +180,7 @@ def train(run_name, changes, seed=0, quiet=False):
     collector.shutdown()
     minutes = (time.time() - start_time) / 60
 
-    # --- Final test of the best saved model ---
+    # Final test of the best saved model
     q_network.load_state_dict(torch.load(MODELS_FOLDER / "dqn" / f"{run_name}.pt"))
     final = evaluate(choose_action)
 

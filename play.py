@@ -1,5 +1,5 @@
 """
-Same as main.py. The rubric refers to play.py, so this file simply runs main.py.
+Same as main.py. The rubric refers to play.py, so this file runs main.py.
 
     uv run play.py
 """

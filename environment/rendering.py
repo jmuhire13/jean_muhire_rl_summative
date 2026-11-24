@@ -30,9 +30,7 @@ from environment.custom_env import (
 WEB_FOLDER = Path(__file__).parent / "web"
 
 
-# ---------------------------------------------------------------------------
 # Turning the environment into data the web page can draw
-# ---------------------------------------------------------------------------
 def build_snapshot(env, reward=0.0, total_reward=0.0, done=False):
     """Collect everything the 3D view needs into a plain dictionary."""
     resilience = env._resilience()
@@ -98,9 +96,7 @@ def print_step(week, household, action, reward, total_reward, info):
         print(f"           -> {event}", flush=True)
 
 
-# ---------------------------------------------------------------------------
 # Web server
-# ---------------------------------------------------------------------------
 class HouseholdObservation(BaseModel):
     """Input for /api/recommend: the 16 observation values, all between 0 and 1."""
     observation: list[float]
