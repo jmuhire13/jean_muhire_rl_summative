@@ -45,7 +45,8 @@ MUTED = "#52514e"
 GRID = "#e4e3df"
 
 # One colour per action for the behaviour figure (fixed order)
-ACTION_COLORS = ["#b5b3ad", "#e34948", "#2a78d6", "#6250d6", "#e87ba4", "#eda100", "#1baf7a", "#008300"]
+# (assessment visit is brown so it cannot be confused with the green of graduation)
+ACTION_COLORS = ["#b5b3ad", "#e34948", "#2a78d6", "#6250d6", "#e87ba4", "#eda100", "#8a5a2b", "#008300"]
 
 # Test settings for generalization
 UNSEEN_SEEDS = list(range(9000, 9050))
@@ -70,6 +71,11 @@ def style_axes(ax, title, xlabel, ylabel):
     for side in ["left", "bottom"]:
         ax.spines[side].set_color("#b5b3ad")
     ax.tick_params(colors=MUTED)
+
+
+def steps_in_thousands(ax):
+    # Show environment steps as 20k, 40k, ... instead of 20000, 40000, ...
+    ax.xaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda x, _: f"{x / 1000:.0f}k"))
 
 
 def save_figure(fig, name):
@@ -162,9 +168,10 @@ def make_convergence_table(algorithms):
 # ---------------------------------------------------------------------------
 # 2. Figures
 # ---------------------------------------------------------------------------
-def figure_reward_comparison(algorithms, scores):
+def figure_reward_comparison(algorithms, scores, convergence):
     """One panel per algorithm: the reward of each training program (thin line,
-    smoothed) and the test reward on the 20 exam programs (thick line)."""
+    smoothed) and the test reward on the 20 exam programs (thick line).
+    A dotted line marks where the run converged (see make_convergence_table)."""
     names = {"rule_based": "Rule-based", "cash_only": "Cash-only", "random": "Random"}
     fig, axes = plt.subplots(2, 2, figsize=(12, 8), sharey=True)
     for ax, algorithm in zip(axes.flat, algorithms):
@@ -182,7 +189,13 @@ def figure_reward_comparison(algorithms, scores):
             ax.axhline(value, color=MUTED, linestyle="--", linewidth=0.9)
             ax.text(0.01, value, f" {names[key]} ({value:.0f})", transform=ax.get_yaxis_transform(),
                     va="bottom", fontsize=8, color=MUTED)
+        # convergence point: first test that reached 90% of the way to the best score
+        converged = convergence.loc[convergence["run"] == run, "frames_to_90pct"].iloc[0]
+        ax.axvline(converged, color=COLORS[algorithm], linestyle=":", linewidth=1.5)
+        ax.text(converged, 0.30, f" 90% reached \n {converged / 1000:.0f}k steps ", transform=ax.get_xaxis_transform(),
+                fontsize=8, color=MUTED, va="top", ha="right" if converged > 120_000 else "left")
         style_axes(ax, f"{LABELS[algorithm]} ({run})", "Environment steps (frames)", "Total reward per program")
+        steps_in_thousands(ax)
         ax.legend(frameon=False, loc="lower right", fontsize=8)
     fig.suptitle("Cumulative reward per program during training (best run of each algorithm)",
                  x=0.01, ha="left", fontsize=13, fontweight="bold", color=TEXT)
@@ -204,7 +217,9 @@ def figure_training_stability(algorithms):
     explore_end = log.loc[log["epsilon"] <= log["epsilon"].min() + 1e-6, "frames"].min()
     ax1.axvline(explore_end, color=MUTED, linestyle=":", linewidth=1)
     ax1.text(explore_end, ax1.get_ylim()[1], " ε reaches 0.05", va="top", fontsize=8, color=MUTED)
-    style_axes(ax1, f"DQN objective: Huber TD loss ({run})", "Environment steps (frames)", "Loss")
+    style_axes(ax1, f"DQN objective: Huber TD loss ({run})", "Environment steps (frames)",
+               "Loss (on rewards x 0.1)")
+    steps_in_thousands(ax1)
     ax1.legend(frameon=False, fontsize=8, loc="center left")
 
     for algorithm in [a for a in algorithms if a != "dqn"]:
@@ -217,6 +232,7 @@ def figure_training_stability(algorithms):
              va="bottom", fontsize=8, color=MUTED)
     style_axes(ax2, "Policy entropy (best policy gradient runs)", "Environment steps (frames)",
                "Entropy (nats)")
+    steps_in_thousands(ax2)
     ax2.legend(frameon=False, fontsize=8, loc="lower left")
     fig.tight_layout()
     save_figure(fig, "fig4_training_stability.png")
@@ -246,6 +262,7 @@ def figure_sweeps(algorithms, scores):
         count = len(list((LOGS_FOLDER / algorithm).glob("*.csv")))
         style_axes(ax, f"{LABELS[algorithm]}: {count} hyperparameter runs", "Environment steps",
                    "Eval reward")
+        steps_in_thousands(ax)
         ax.legend(frameon=False, fontsize=8, loc="lower right")
     fig.suptitle("Hyperparameter sweeps (grey = other runs, dotted = rule-based officer)",
                  x=0.01, ha="left", fontsize=11, color=MUTED)
@@ -353,7 +370,7 @@ def main():
     make_tables(algorithms)
     scores = baseline_scores()
     convergence = make_convergence_table(algorithms)
-    figure_reward_comparison(algorithms, scores)
+    figure_reward_comparison(algorithms, scores, convergence)
     if "dqn" in algorithms:
         figure_training_stability(algorithms)
     figure_sweeps(algorithms, scores)
