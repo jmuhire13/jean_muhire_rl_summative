@@ -13,16 +13,16 @@ const VILLAGE_RADIUS = 15;          // houses sit on a circle around the office
 const ACTION_ICONS = ["👁", "💵", "🐐", "🛠", "➕", "🏦", "📋", "🎓"];
 
 const COLORS = {
-  grass: new THREE.Color("#7fae55"),
+  grass: new THREE.Color("#9db566"),
   dryGrass: new THREE.Color("#c8a466"),
-  sky: new THREE.Color("#a9d4f2"),
+  sky: new THREE.Color("#bfdcec"),
   drySky: new THREE.Color("#e8c48f"),
   red: new THREE.Color("#e0524d"),
   amber: new THREE.Color("#e9a23b"),
   green: new THREE.Color("#4cbf6b"),
   gold: new THREE.Color("#ffd45e"),
   thatch: new THREE.Color("#9c6b3c"),
-  path: new THREE.Color("#b98f5e"),
+  path: new THREE.Color("#c79b68"),
 };
 
 // Basic scene: renderer, camera, lights
@@ -53,7 +53,7 @@ controls.autoRotateSpeed = 0.25;
 controls.addEventListener("start", () => { controls.autoRotate = false; });
 
 // Soft light from the sky and a sun that casts shadows
-const hemiLight = new THREE.HemisphereLight("#ffffff", "#6b8f45", 1.1);
+const hemiLight = new THREE.HemisphereLight("#fff8ec", "#7d9a4a", 1.1);
 scene.add(hemiLight);
 
 const sun = new THREE.DirectionalLight("#fff3dc", 2.2);
@@ -129,7 +129,7 @@ function buildOffice() {
   walls.position.y = 1.2;
   const roof = new THREE.Mesh(
     new THREE.BoxGeometry(5, 0.35, 3.7),
-    new THREE.MeshStandardMaterial({ color: "#2f6fb5" })
+    new THREE.MeshStandardMaterial({ color: "#c2553d" })
   );
   roof.position.y = 2.55;
   const pole = new THREE.Mesh(
@@ -139,7 +139,7 @@ function buildOffice() {
   pole.position.set(2.8, 2, 0);
   const flag = new THREE.Mesh(
     new THREE.PlaneGeometry(1.2, 0.7),
-    new THREE.MeshStandardMaterial({ color: "#4fa3ff", side: THREE.DoubleSide })
+    new THREE.MeshStandardMaterial({ color: "#2a7f7a", side: THREE.DoubleSide })
   );
   flag.position.set(3.4, 3.6, 0);
   walls.castShadow = roof.castShadow = pole.castShadow = true;
@@ -294,7 +294,7 @@ for (let i = 0; i < NUM_HOUSEHOLDS; i++) houses.push(buildHouse(i));
 // Program officer who walks to the household under review
 function buildOfficer() {
   const officer = new THREE.Group();
-  const body = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.36, 1.1, 14), new THREE.MeshStandardMaterial({ color: "#2f6fb5" }));
+  const body = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.36, 1.1, 14), new THREE.MeshStandardMaterial({ color: "#2a7f7a" }));
   body.position.y = 0.75;
   const head = new THREE.Mesh(new THREE.SphereGeometry(0.26, 16, 12), new THREE.MeshStandardMaterial({ color: "#8d5a3b" }));
   head.position.y = 1.55;
@@ -311,7 +311,7 @@ const officerTarget = new THREE.Vector3(0, 0, 2.5);
 // Light beam marking the household under review
 const beam = new THREE.Mesh(
   new THREE.CylinderGeometry(2.4, 2.4, 14, 40, 1, true),
-  new THREE.MeshBasicMaterial({ color: "#7cc4ff", transparent: true, opacity: 0.12, side: THREE.DoubleSide, depthWrite: false })
+  new THREE.MeshBasicMaterial({ color: "#fff1c9", transparent: true, opacity: 0.12, side: THREE.DoubleSide, depthWrite: false })
 );
 beam.position.y = 7;
 scene.add(beam);
@@ -423,19 +423,19 @@ function updatePanels(snap) {
   if (snap.chosen_action !== undefined) {
     const h = snap.reviewed_household + 1;
     $("action-text").textContent = `${ACTION_ICONS[snap.chosen_action]}  Household ${h}: ${snap.last_action_name}`;
-    $("action-sub").textContent = `week ${snap.week} · reward ${formatSigned(snap.reward)}${snap.drought ? " · drought" : ""}`;
+    $("action-sub").textContent = `week ${snap.week} · seed ${programSeed} · reward ${formatSigned(snap.reward)}${snap.drought ? " · drought" : ""}`;
     const card = $("action-card");
     card.classList.remove("flash");
     void card.offsetWidth;  // restart the flash animation
     card.classList.add("flash");
   } else {
     $("action-text").textContent = "New program ready. Press Play.";
-    $("action-sub").textContent = "";
+    $("action-sub").textContent = `${programPolicy} · seed ${programSeed}`;
   }
   if (snap.done) {
     $("action-text").textContent = "Program finished";
     $("action-sub").textContent =
-      `total reward ${snap.total_reward.toFixed(2)} · graduations held ${snap.successful_graduations} · in crisis ${snap.households_in_crisis}`;
+      `seed ${programSeed} · total reward ${snap.total_reward.toFixed(2)} · graduations held ${snap.successful_graduations} · in crisis ${snap.households_in_crisis}`;
   }
 
   // Chart history
@@ -472,7 +472,7 @@ function drawChart(totalWeeks) {
   ctx.clearRect(0, 0, w, h);
 
   // light grid lines
-  ctx.strokeStyle = "rgba(255,255,255,0.07)";
+  ctx.strokeStyle = "rgba(255,255,255,0.10)";
   ctx.lineWidth = 1;
   for (let i = 1; i < 4; i++) {
     ctx.beginPath();
@@ -494,8 +494,8 @@ function drawChart(totalWeeks) {
     });
     ctx.stroke();
   }
-  drawLine(history.crisis, "#ff6b6b");
-  drawLine(history.lasting, "#5fd08a");
+  drawLine(history.crisis, "#ff7b72");
+  drawLine(history.lasting, "#6fe0a0");
 }
 
 function miniBar(value, color) {
@@ -516,15 +516,15 @@ function updateHouseholdPanel() {
 
   const rows = [
     ["Food", d.food, d.record_food, "#e9a23b"],
-    ["Income", d.income, d.record_income, "#4fa3ff"],
-    ["Savings", d.savings, d.record_savings, "#ffd45e"],
-    ["Health", d.health, d.record_health, "#ff7d9c"],
+    ["Income", d.income, d.record_income, "#4fc3b8"],
+    ["Savings", d.savings, d.record_savings, "#d9a520"],
+    ["Health", d.health, d.record_health, "#e0708a"],
   ];
   let html = rows.map(([name, real, record, color]) =>
     `<div class="hh-row"><span class="name">${name}</span>${miniBar(real, color)}${miniBar(record, color + "99")}</div>`
   ).join("");
-  html += `<div class="hh-row"><span class="name">Dependency</span>${miniBar(d.dependency, "#b07cff")}<span class="name">record age ${d.weeks_since_visit} wk</span></div>`;
-  html += `<div class="hh-row"><span class="name">Resilience</span>${miniBar(d.resilience, "#5fd08a")}<span></span></div>`;
+  html += `<div class="hh-row"><span class="name">Dependency</span>${miniBar(d.dependency, "#a98be0")}<span class="name">record age ${d.weeks_since_visit} wk</span></div>`;
+  html += `<div class="hh-row"><span class="name">Resilience</span>${miniBar(d.resilience, "#4cbf6b")}<span></span></div>`;
   $("hh-rows").innerHTML = html;
 
   const chips = [
@@ -639,9 +639,40 @@ function animate() {
 }
 animate();
 
-window.addEventListener("resize", () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
+// Centre the village in the free space next to the card columns, and move the camera
+// back on narrow windows so the whole ring of houses stays in view
+const phoneLayout = window.matchMedia("(max-width: 600px) and (orientation: portrait)");
+
+function fitCamera() {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  const phone = phoneLayout.matches;   // on phones the cards are at the bottom, not at the sides
+  // free space = between the columns on the left side and the columns on the right side
+  let freeLeft = 0;
+  let freeRight = width;
+  let bottom = 0;
+  for (const column of document.querySelectorAll(".column")) {
+    const box = column.getBoundingClientRect();
+    if (box.width === 0) continue;                    // hidden column
+    if (phone) bottom = Math.max(bottom, height - box.top);
+    else if (box.left < width / 2) freeLeft = Math.max(freeLeft, box.right);
+    else freeRight = Math.min(freeRight, box.left);
+  }
+  const freeWidth = Math.max(freeRight - freeLeft, width * 0.4);
+  const shiftX = width / 2 - (freeLeft + freeRight) / 2;
+  camera.aspect = width / height;
+  camera.setViewOffset(width, height, shiftX, bottom / 2, width, height);
   camera.updateProjectionMatrix();
+  const distance = phone ? 80 : Math.min(70, 48.4 * Math.max(1, 1.15 / (freeWidth / height)));
+  scene.fog.near = distance;         // keep the fog behind the village, not on it
+  scene.fog.far = distance + 65;
+  const direction = camera.position.clone().sub(controls.target).normalize();
+  camera.position.copy(controls.target).addScaledVector(direction, distance);
+}
+fitCamera();
+
+window.addEventListener("resize", () => {
+  fitCamera();
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
@@ -693,8 +724,19 @@ function send(message) {
   });
 }
 
+// The policy and seed of the program that is running now
+let programPolicy = null;
+let programSeed = null;
+
+// True when the menu or the seed box no longer match the running program
+function settingsChanged() {
+  return $("policy-select").value !== programPolicy || Number($("seed-input").value) !== programSeed;
+}
+
 function restart() {
   playing = false;
+  programPolicy = $("policy-select").value;
+  programSeed = Number($("seed-input").value);
   $("play-btn").textContent = "Play";
   $("event-log").innerHTML = "";
   selectedHousehold = null;
@@ -715,16 +757,19 @@ async function playLoop() {
   $("play-btn").textContent = "Play";
 }
 
-$("play-btn").addEventListener("click", () => {
+$("play-btn").addEventListener("click", async () => {
+  if (!playing && settingsChanged()) await restart();   // never play an old seed or policy
   if (finished) return;
   playing = !playing;
   $("play-btn").textContent = playing ? "Pause" : "Play";
   if (playing) playLoop();
 });
 
-$("step-btn").addEventListener("click", () => {
+$("step-btn").addEventListener("click", async () => {
+  if (!playing && settingsChanged()) await restart();
   if (!playing && !finished) send({ type: "step" });
 });
 
 $("restart-btn").addEventListener("click", restart);
 $("policy-select").addEventListener("change", restart);
+$("seed-input").addEventListener("change", restart);   // a new seed starts a new program right away

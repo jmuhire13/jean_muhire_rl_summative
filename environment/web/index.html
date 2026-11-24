@@ -6,7 +6,7 @@
   <title>Aid Impact Simulator</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/style.css?v=5">
   <!-- three.js (version 0.170.0) is saved in the project, so the page works offline -->
   <script type="importmap">
     {
@@ -24,14 +24,32 @@
   <!-- Floating labels above houses (positioned by village.js) -->
   <div id="labels"></div>
 
-  <!-- Title -->
+  <!-- All panels sit in a grid over the 3D scene: left column, top middle, right column, bottom -->
+  <div class="hud">
+
+  <!-- Left column: title and event log -->
+  <div class="column left-column">
   <header class="panel title-panel">
     <div class="eyebrow">NGO aid allocation · Reinforcement learning</div>
     <h1>Aid Impact Simulator</h1>
     <p>Lasting change, not only short term relief.</p>
   </header>
 
-  <!-- Program numbers -->
+  <section class="panel log-panel">
+    <div class="stat-label">Events</div>
+    <ul id="event-log"></ul>
+  </section>
+  </div>
+
+  <!-- Top middle: the officer's decision -->
+  <section id="action-card" class="panel action-panel">
+    <div class="stat-label">Officer decision</div>
+    <div id="action-text" class="action-text">Press Play to start the program</div>
+    <div id="action-sub" class="action-sub"></div>
+  </section>
+
+  <!-- Right column: program numbers and the selected household -->
+  <div class="column right-column">
   <section class="panel stats-panel">
     <div class="stat wide">
       <div class="stat-label">Week <span id="week-text">0 / 104</span></div>
@@ -56,14 +74,6 @@
     </div>
   </section>
 
-  <!-- Current decision -->
-  <section id="action-card" class="panel action-panel">
-    <div class="stat-label">Officer decision</div>
-    <div id="action-text" class="action-text">Press Play to start the program</div>
-    <div id="action-sub" class="action-sub"></div>
-  </section>
-
-  <!-- Selected household details -->
   <section class="panel household-panel">
     <div class="panel-head">
       <div>
@@ -77,14 +87,9 @@
     <div id="hh-support" class="support-row"></div>
     <p class="hint">Click a house to inspect it. The notebook only updates when staff visit.</p>
   </section>
+  </div>
 
-  <!-- Event log -->
-  <section class="panel log-panel">
-    <div class="stat-label">Events</div>
-    <ul id="event-log"></ul>
-  </section>
-
-  <!-- Controls -->
+  <!-- Bottom: controls -->
   <footer class="panel controls-panel">
     <label>Policy
       <select id="policy-select"></select>
@@ -105,9 +110,10 @@
       <span><i class="swatch gold"></i>Graduated</span>
     </div>
   </footer>
+  </div>
 
   <div id="connection" class="connection">Connecting to simulator...</div>
 
-  <script type="module" src="/static/village.js"></script>
+  <script type="module" src="/static/village.js?v=5"></script>
 </body>
 </html>

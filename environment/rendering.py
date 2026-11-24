@@ -113,7 +113,9 @@ def create_app(policies, default_policy):
 
     @app.get("/")
     def index():
-        return FileResponse(WEB_FOLDER / "index.html")
+        # no-cache: the browser always asks for the newest page, so it never mixes
+        # an old cached page with new styles
+        return FileResponse(WEB_FOLDER / "index.html", headers={"Cache-Control": "no-cache"})
 
     @app.get("/api/info")
     def info():
