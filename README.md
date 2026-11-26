@@ -1,5 +1,7 @@
 # Aid Impact Simulator: Reinforcement Learning for NGO Aid Allocation
 
+**Video demo:** [the DQN agent running the program (4.5 minutes)](https://www.loom.com/share/39e839a1276e494d8348c51f5498a6ec)
+
 ## Mission
 
 Many NGOs give help that fills today's gap, while the same problem comes back tomorrow.
